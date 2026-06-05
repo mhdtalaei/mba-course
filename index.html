@@ -969,9 +969,15 @@ function renderLeaderboard(lb) {
       <div class="podium-coins">◈ ${coins}</div>
       <div style="font-size:11px;color:var(--text3)">coins</div>
     </div>`).join('');
-  document.getElementById('lbRest').textContent = rest.length
-    ? rest.map(({name,coins},i)=>`${i+4}. ${name}${name===USER.name?' (you)':''} — ${coins} coins`).join(' · ')
-    : '';
+  // Only show full rankings to admin — participants only see top 3
+  const restEl = document.getElementById('lbRest');
+  if (USER.isAdmin) {
+    restEl.textContent = rest.length
+      ? rest.map(({name,coins},i)=>`${i+4}. ${name} — ${coins} coins`).join(' · ')
+      : '';
+  } else {
+    restEl.textContent = '';
+  }
 }
 
 function renderAdminParticipants(lb) {
@@ -998,7 +1004,7 @@ async function renderRewards(lb) {
   if (!ended) {
     gate.innerHTML = `<div class="session-banner"><svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Rewards unlock when the facilitator ends the cohort. Finish in the top 3 to redeem!</div>`;
   } else if (myRank > 3) {
-    gate.innerHTML = `<div class="locked-state" style="margin-bottom:16px"><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><p style="margin-top:8px">You finished in position ${myRank}. Only the top 3 can redeem rewards.</p></div>`;
+    gate.innerHTML = `<div class="locked-state" style="margin-bottom:16px"><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><p style="margin-top:8px">You were not in the top 3 this time. Keep earning coins next time!</p></div>`;
   } else {
     gate.innerHTML = `<div class="completed-state" style="margin-bottom:16px"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" style="color:var(--teal)"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p style="margin-top:8px">🎉 Congratulations! You finished <strong>${['1st','2nd','3rd'][myRank-1]}</strong> — redeem any reward below.</p></div>`;
   }
