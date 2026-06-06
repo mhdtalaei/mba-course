@@ -1,0 +1,260 @@
+{
+  "course": {
+    "title": "AI-Native Enterprise Mini MBA Lab",
+    "subtitle": "Building the AI-native organisation",
+    "facilitator_password": "admin1234",
+    "cohort_id": "cohort-01"
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "type": "title",
+      "title": "AI-Native Enterprise Mini MBA",
+      "subtitle": "Business Foundations, Leadership & Enterprise Transformation in the AI Era",
+      "body": "Welcome to the AI-Native Enterprise Mini MBA. Throughout this programme you will step into the role of CEO of JourneyX, a digital travel platform, and make strategic, financial, operational and transformation decisions. You will learn timeless business foundations, explore how enterprises operate today, and discover how organisations must evolve their execution models in the AI era.",
+      "facilitator_notes": "Welcome everyone. This is not an AI course. This is not a technology course. This is a modern business leadership programme. The objective is to help leaders understand how businesses work and how enterprises must evolve in the AI era. Throughout the programme participants will act as CEO of JourneyX and make decisions that impact Financial Health, Customer Health, People Health, Operational Health, Innovation Health and Risk & Governance Health."
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "title": "Why This Programme Exists",
+      "body": "Throughout my career I have worked across strategy, sales, operations, project management, capital investment, governance and transformation. One thing became clear: many talented leaders are experts in their own field but struggle to understand how the rest of the business works. Finance leaders often don't understand technology. Technology leaders often don't understand finance. Project leaders don't always understand strategy. Many managers have never been taught how businesses actually work as an integrated system. This programme was created to bridge those gaps and help leaders understand both the foundations of business and how enterprises must evolve in the AI era.",
+      "facilitator_notes": "Tell your story rather than reading the slide. Give 2-3 examples from your own experience where teams made poor decisions because they lacked understanding of another business function. Reinforce that this course is designed to create well-rounded leaders, not specialists. Conclude with: 'The best leaders understand how the whole business works, not just their own department.'"
+    },
+    {
+      "id": "s3",
+      "type": "image",
+      "title": "",
+      "body": "",
+      "image_url": "images/MyJourneyBright.png"
+    },
+    {
+      "id": "s4",
+      "type": "keypoints",
+      "title": "Three hallmarks of AI-native orgs",
+      "points": [
+        "Data infrastructure is a strategic asset, not an afterthought",
+        "AI is embedded in decision loops, not just dashboards",
+        "Employees are trained to work with — and direct — AI systems"
+      ]
+    },
+    {
+      "id": "s5",
+      "type": "video",
+      "title": "What makes a company AI-native?",
+      "description": "8 min · Module 1, Lesson 2",
+      "video_url": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+      "id": "s6",
+      "type": "quote",
+      "title": "Executive insight",
+      "quote": "The question is no longer whether to use AI, but how fast you can rewire your operating model around it.",
+      "attribution": "McKinsey Global Institute"
+    },
+    {
+      "id": "s7",
+      "type": "activity",
+      "activity_id": "a1"
+    },
+    {
+      "id": "s8",
+      "type": "activity",
+      "activity_id": "a2"
+    },
+    {
+      "id": "s9",
+      "type": "activity",
+      "activity_id": "a3"
+    },
+    {
+      "id": "s10",
+      "type": "activity",
+      "activity_id": "a4"
+    },
+    {
+      "id": "s11",
+      "type": "chart",
+      "title": "AI adoption maturity — your organisation",
+      "description": "Rate your organisation in each area (0–10)",
+      "axes": [
+        "Strategy",
+        "Data",
+        "People",
+        "Process",
+        "Culture"
+      ]
+    },
+    {
+      "id": "s12",
+      "type": "table",
+      "title": "AI opportunity canvas",
+      "description": "Fill in the table for your department",
+      "columns": [
+        "Use case",
+        "Business value",
+        "Effort level",
+        "Owner / next step"
+      ],
+      "rows": [
+        "Customer service automation",
+        "Forecasting & planning",
+        "Content generation",
+        "Compliance monitoring"
+      ]
+    },
+    {
+      "id": "s13",
+      "type": "text",
+      "title": "Day 1 wrap-up",
+      "body": "Today we covered the foundations of AI-native thinking. Tomorrow we will move into AI Strategy and mapping opportunities across your value chain."
+    },
+    {
+      "id": "sp1",
+      "type": "activity",
+      "activity_id": "p1"
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "multiple_choice",
+      "title": "Knowledge check — AI-native fundamentals",
+      "timer_seconds": 60,
+      "coins": 15,
+      "question": "Which of the following best describes an AI-native organisation?",
+      "options": [
+        "One that uses AI only in its IT department",
+        "An organisation where AI is embedded across all decision-making layers",
+        "A company that has adopted cloud computing",
+        "A business that sells AI products"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "a2",
+      "type": "multiple_choice",
+      "title": "Knowledge check — AI strategy",
+      "timer_seconds": 60,
+      "coins": 15,
+      "question": "What is the first step in building an AI opportunity map?",
+      "options": [
+        "Hiring data scientists",
+        "Selecting a cloud provider",
+        "Identifying high-value, high-feasibility use cases across the value chain",
+        "Buying an off-the-shelf AI tool"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "a3",
+      "type": "fill_blank",
+      "title": "Fill in the blanks",
+      "timer_seconds": 90,
+      "coins": 25,
+      "items": [
+        {
+          "text": "AI-native companies treat data as a strategic ___",
+          "answer": "asset"
+        },
+        {
+          "text": "The second stage of AI maturity is being ___ driven",
+          "answer": "data"
+        },
+        {
+          "text": "Employees in AI-native orgs focus on ___ and creativity",
+          "answer": "judgment"
+        }
+      ]
+    },
+    {
+      "id": "a4",
+      "type": "drag_drop",
+      "title": "Sort into AI adoption stages",
+      "timer_seconds": 120,
+      "coins": 30,
+      "zones": [
+        "Exploring",
+        "Scaling",
+        "Transforming"
+      ],
+      "items": [
+        {
+          "id": "d1",
+          "text": "Pilot chatbot",
+          "zone": "Exploring"
+        },
+        {
+          "id": "d2",
+          "text": "AI-led pricing engine",
+          "zone": "Transforming"
+        },
+        {
+          "id": "d3",
+          "text": "Automated invoice processing",
+          "zone": "Scaling"
+        },
+        {
+          "id": "d4",
+          "text": "Proof-of-concept recommender",
+          "zone": "Exploring"
+        },
+        {
+          "id": "d5",
+          "text": "Enterprise-wide AI governance",
+          "zone": "Transforming"
+        },
+        {
+          "id": "d6",
+          "text": "Expanding to 5 business units",
+          "zone": "Scaling"
+        }
+      ]
+    },
+    {
+      "id": "p1",
+      "type": "poll",
+      "title": "Quick pulse check",
+      "timer_seconds": 60,
+      "coins": 0,
+      "question": "Is your organisation ready to become AI-native?",
+      "options": [
+        "Yes, we're on our way",
+        "Not yet, early stages",
+        "No, we haven't started"
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "name": "Amazon gift card",
+      "cost": 300,
+      "description": "$30 AUD",
+      "icon": "gift"
+    },
+    {
+      "name": "Cafe voucher",
+      "cost": 200,
+      "description": "$20 at a café of your choice",
+      "icon": "coffee"
+    },
+    {
+      "name": "Udemy course",
+      "cost": 350,
+      "description": "Any paid Udemy course",
+      "icon": "book"
+    },
+    {
+      "name": "Movie tickets",
+      "cost": 150,
+      "description": "2x cinema tickets",
+      "icon": "ticket"
+    },
+    {
+      "name": "Course certificate",
+      "cost": 500,
+      "description": "Printed & posted",
+      "icon": "award"
+    }
+  ]
+}
