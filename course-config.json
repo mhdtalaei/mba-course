@@ -30,37 +30,47 @@
     },
     {
       "id": "s4",
-      "type": "keypoints",
-      "title": "Three hallmarks of AI-native orgs",
-      "points": [
-        "Data infrastructure is a strategic asset, not an afterthought",
-        "AI is embedded in decision loops, not just dashboards",
-        "Employees are trained to work with — and direct — AI systems"
-      ]
+      "type": "image",
+      "title": "Selected Experiences",
+      "body": "Throughout my career I have had opportunities to learn from industry leaders, participate in conferences, contribute to transformation initiatives and build relationships with people from different industries and backgrounds. Here are some memorable moments from that journey.",
+      "image_url": "Experience.png",
+      "facilitator_notes": "Spend 5-7 minutes introducing the photos and the stories behind them. One of the photos includes Lewis Pugh, whose story of adaptation and resilience will reappear later in the course. Do not reveal which photos are real and which are AI-generated. Build curiosity and confidence. Before moving to the next slide ask participants: 'How many of you believe you could confidently identify which of these photos are real and which are AI-generated?'"
     },
     {
       "id": "s5",
-      "type": "video",
-      "title": "What makes a company AI-native?",
-      "description": "8 min · Module 1, Lesson 2",
-      "video_url": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      "type": "activity",
+      "activity_id": "a5"
     },
     {
       "id": "s6",
       "type": "quote",
-      "title": "Executive insight",
-      "quote": "The question is no longer whether to use AI, but how fast you can rewire your operating model around it.",
-      "attribution": "McKinsey Global Institute"
+      "title": "AI-Era Leadership Lesson",
+      "quote": "Trust, but Verify. Seeing Is No Longer Believing. Critical thinking becomes a leadership capability.",
+      "attribution": "AI-Native Enterprise Mini MBA",
+      "facilitator_notes": "Reveal that Photo 4 was AI-generated. Ask participants how many selected Photo 4 correctly. Then ask: What clues did you use? What made some photos appear more authentic than others? Explain that AI can now generate highly convincing images, reports, presentations, analyses and recommendations. The lesson is not to distrust everything. The lesson is to develop critical thinking and verification habits. Leaders must increasingly make decisions in environments where content can be generated instantly and convincingly. In the AI era, trust remains important, but verification becomes essential."
     },
     {
       "id": "s7",
-      "type": "activity",
-      "activity_id": "a1"
+      "type": "keypoints",
+      "title": "Critical Thinking in the AI Era",
+      "points": [
+        "Question information before accepting it as fact.",
+        "Verify evidence and data sources before making decisions.",
+        "Challenge assumptions — including your own.",
+        "Consider alternative explanations and viewpoints.",
+        "Use AI as an advisor, not as an unquestioned authority.",
+        "Focus on judgment, context and decision quality, not just information.",
+        "Example: If AI says customer churn is increasing because of pricing, don't immediately reduce prices. Ask: What data supports this? What assumptions were made? Could there be other causes? Verify before you decide."
+      ],
+      "facilitator_notes": "Spend 5-7 minutes on this slide. Explain that critical thinking does not mean being sceptical of everything. It means evaluating information, verifying evidence, challenging assumptions and making sound judgments before taking action. In the past, creating reports, presentations and analyses required significant effort. Today AI can generate them in seconds. The leadership challenge is no longer obtaining information; it is determining whether the information is accurate, complete, unbiased and relevant. Use the photo activity as the example. Participants saw convincing content and many were confident in their answers. Then use the customer churn example: imagine an AI assistant tells a CEO that customer churn is increasing because prices are too high. A leader with poor critical thinking immediately reduces prices. A leader with strong critical thinking asks: What evidence supports this conclusion? How reliable is the data? What other explanations exist? Is the issue pricing, service quality, competitors, product features or customer experience? Reinforce the principle: Trust, but Verify. Seeing Is No Longer Believing."
     },
     {
       "id": "s8",
-      "type": "activity",
-      "activity_id": "a2"
+      "type": "video",
+      "title": "Adapting to a Changing World",
+      "description": "Lewis Pugh — How I Swam the North Pole",
+      "video_url": "https://embed.ted.com/talks/lewis_pugh_how_i_swam_the_north_pole",
+      "facilitator_notes": "Before playing the video, tell participants that one of the photos they saw earlier was a real photo with Lewis Pugh. Briefly explain that Lewis became the first person to complete a long-distance swim at the North Pole. Ask participants to think about what happens when the environment changes but people, organisations and leaders continue operating the same way. After the video, facilitate a discussion around adaptation, resilience, leadership and transformation. Emphasise that successful organisations do not evolve because technology exists; they evolve because the environment around them changes. Connect this to the course philosophy: Foundations Remain. Execution Evolves. The world changes first. Leaders and organisations must adapt second."
     },
     {
       "id": "s9",
@@ -117,19 +127,28 @@
   ],
   "activities": [
     {
-      "id": "a1",
+      "id": "a_real_ai",
       "type": "multiple_choice",
-      "title": "Knowledge check — AI-native fundamentals",
+      "title": "Real or AI?",
       "timer_seconds": 60,
-      "coins": 15,
-      "question": "Which of the following best describes an AI-native organisation?",
+      "coins": 50,
+      "question": "Looking at the five photos in the collage, which photo do you believe is AI-generated?",
       "options": [
-        "One that uses AI only in its IT department",
-        "An organisation where AI is embedded across all decision-making layers",
-        "A company that has adopted cloud computing",
-        "A business that sells AI products"
+        "Photo 1",
+        "Photo 2",
+        "Photo 3",
+        "Photo 4",
+        "Photo 5"
       ],
-      "correct": 1
+      "correct": 3
+    },
+    {
+      "id": "a1",
+      "type": "open_ended",
+      "title": "Reflection — AI in your organisation",
+      "timer_seconds": 120,
+      "coins": 20,
+      "prompt": "In what ways is AI currently being used in your organisation? What excites you about the potential of AI, and what concerns do you have?"
     },
     {
       "id": "a2",
