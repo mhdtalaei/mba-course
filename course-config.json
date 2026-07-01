@@ -1,0 +1,452 @@
+{
+  "course": {
+    "title": "Executive Operating System™",
+    "subtitle": "Leading, Deciding & Executing in the AI Era",
+    "facilitator_password": "admin1234",
+    "cohort_id": "cohort-01"
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "type": "title",
+      "title": "Executive Operating System™",
+      "subtitle": "Leading, Deciding & Executing in the AI Era",
+      "body": "Welcome to the Executive Operating System™. Throughout this programme you will step into the role of CEO where you will make strategic, financial, operational and transformation decisions. You will strengthen your business foundations and learn how organisations must evolve to lead, decide and execute successfully in the AI era.",
+      "facilitator_notes": "Welcome everyone. This is not an AI course. This is not a technology course. This is a modern business leadership programme. The objective is to help leaders understand how businesses work and how enterprises must evolve in the AI era. Throughout the programme participants will act as CEO of JourneyX and make decisions that impact Financial Health, Customer Health, People Health, Operational Health, Innovation Health and Risk & Governance Health."
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "title": "Why This Programme Exists",
+      "body": "Throughout my career, I have worked across strategy, sales, operations, project management, capital investment, governance and enterprise transformation. I repeatedly observed the same challenge: talented leaders often become experts in their own discipline but have limited understanding of how the rest of the business creates value. Finance leaders may not understand technology. Technology leaders may not understand finance. Functional leaders often optimise their own departments without understanding the broader enterprise. The result is slower decisions, poor alignment and missed opportunities. This programme was created to help leaders understand how businesses actually work and how they must evolve to lead, decide and execute successfully in the AI era.",
+      "facilitator_notes": "Tell your story rather than reading the slide. Give 2-3 examples from your own experience where teams made poor decisions because they lacked understanding of another business function. Reinforce that this course is designed to create well-rounded leaders, not specialists. Conclude with: 'The best leaders understand how the whole business works, not just their own department.' How many of you have worked with another department and realised they viewed the same problem completely differently?"
+    },
+    {
+      "id": "s3",
+      "type": "image",
+      "title": "",
+      "body": "",
+      "image_url": "images/Slide03.MyJourney.png"
+    },
+    {
+      "id": "s4",
+      "type": "image",
+      "title": "Selected Experiences",
+      "body": "Throughout my career, I have been fortunate to learn from industry leaders, contribute to major transformation programmes and engage with people from diverse industries and backgrounds. Every experience has reinforced one lesson: continuous learning and curiosity are essential for effective leadership.",
+      "image_url": "images/Slide04.Experience.png",
+      "facilitator_notes": "Spend 5-7 minutes introducing the photos and the stories behind them. One of the photos includes Lewis Pugh, whose story of adaptation and resilience will reappear later in the course. Do not reveal which photos are real and which are AI-generated. Build curiosity and confidence. Before moving to the next slide ask participants: 'How many of you believe you could confidently identify which of these photos are real and which are AI-generated?'"
+    },
+    {
+      "id": "s5",
+      "type": "activity",
+      "activity_id": "a_real_ai"
+    },
+    {
+      "id": "s6",
+      "type": "quote",
+      "title": "AI-Era Leadership Lesson",
+      "quote": "Trust, but Verify. Seeing Is No Longer Believing. Critical thinking is a leadership capability.",
+      "attribution": "Executive Operating System™",
+      "facilitator_notes": "Reveal that Photo 4 was AI-generated. Ask participants how many selected Photo 4 correctly. Then ask: What clues did you use? What made some photos appear more authentic than others? Explain that AI can now generate highly convincing images, reports, presentations, analyses and recommendations. The lesson is not to distrust everything. The lesson is to develop critical thinking and verification habits. Leaders must increasingly make decisions in environments where content can be generated instantly and convincingly. In the AI era, trust remains important, but verification becomes essential."
+    },
+    {
+      "id": "s7",
+      "type": "keypoints",
+      "title": "Critical Thinking in the AI Era",
+      "points": [
+        "Question information before accepting it as fact.",
+        "Verify evidence and data sources before making decisions.",
+        "Challenge assumptions — including your own.",
+        "Consider alternative explanations and viewpoints.",
+        "Use AI as an advisor, not as an unquestioned authority.",
+        "Focus on judgment, context and decision quality, not just information.",
+        "Example: If AI says customer churn is increasing because of pricing, don't immediately reduce prices. Ask: What data supports this? What assumptions were made? Could there be other causes? Verify before you decide. Better information does not guarantee better decisions. Better judgment does. Related concepts: Critical Thinking • Evidence-Based Management • Decision Quality"
+      ],
+      "facilitator_notes": "Spend 5-7 minutes on this slide. Explain that critical thinking does not mean being sceptical of everything. It means evaluating information, verifying evidence, challenging assumptions and making sound judgments before taking action. In the past, creating reports, presentations and analyses required significant effort. Today AI can generate them in seconds. The leadership challenge is no longer obtaining information; it is determining whether the information is accurate, complete, unbiased and relevant. Use the photo activity as the example. Participants saw convincing content and many were confident in their answers. Then use the customer churn example: imagine an AI assistant tells a CEO that customer churn is increasing because prices are too high. A leader with poor critical thinking immediately reduces prices. A leader with strong critical thinking asks: What evidence supports this conclusion? How reliable is the data? What other explanations exist? Is the issue pricing, service quality, competitors, product features or customer experience? Reinforce the principle: Trust, but Verify. Seeing Is No Longer Believing. Can you think of a time when a decision in your organisation was made too quickly because people trusted information without challenging it?"
+    },
+    {
+      "id": "s8",
+      "type": "video",
+      "title": "Adapting to a Changing World",
+      "description": "As you watch this video, don't think about swimming.Think about leadership. Think about organisations. Think about change. How do leaders respond when the environment fundamentally changes?",
+      "video_url": "https://embed.ted.com/talks/lewis_pugh_how_i_swam_the_north_pole",
+      "facilitator_notes": "Before playing the video, tell participants that one of the photos they saw earlier was a real photo with Lewis Pugh. Briefly explain that Lewis became the first person to complete a long-distance swim at the North Pole. What was Lewis adapting to? Environment, Conditions, Risk, Uncertainty, etc. What is the equivalent for businesses today? AI & Technology, Data, Customer expectations, Competition, Speed , etc. The greatest threat to organisations isn't change. It's continuing to operate as if nothing has changed. Foundations Remain. Execution Evolves. If your organisation had to be redesigned today from scratch for the AI era, what is the first thing you would change?"
+    },
+    {
+      "id": "s9",
+      "type": "title",
+      "title": "How Businesses Must Evolve in the AI Era",
+      "subtitle": "",
+      "body": "Understand why businesses must evolve, what has fundamentally changed, and the principles that should guide transformation in the AI era.",
+      "facilitator_notes": ""
+    },
+    {
+      "id": "s10",
+      "type": "text",
+      "title": "You Are the CEO of JourneyX",
+      "body": "JourneyX is one of the fastest-growing digital travel companies, offering flights, hotels, car rentals, travel insurance and loyalty rewards through a single digital platform.<br><br>Over the past three years, the company has invested more than <b>$250 million</b> in cloud platforms, AI, automation and data.<br><br>Yet the Board is disappointed.<br><br>• Customers still experience fragmented journeys.<br>• Employees wait days for reports and business insights.<br>• Leaders make decisions using disconnected spreadsheets.<br>• Teams optimise their own functions rather than the enterprise.<br>• Competitors are moving faster.<br><br>At the next Board meeting, the Chair asks one simple question:<br><br><b>'We've invested heavily in technology. Why aren't we creating more business value?'</b><br><br>Throughout this programme, you are the CEO.<br><br>Your job is not to buy more technology.<br>Your job is to build a better business.",
+      "facilitator_notes": "Timing: 8-10 minutes. Ask participants: What concerns you most? What additional information would you request? Is this a technology problem, a leadership problem, a strategy problem or an operating model problem? What would you investigate first? Capture responses without providing answers. Explain that every module will provide another piece of the solution and participants will revisit JourneyX throughout the programme."
+    },
+    {
+      "id": "s11",
+      "type": "activity",
+      "activity_id": "p_journeyx_barrier"
+    },
+    {
+      "id": "s12",
+      "type": "keypoints",
+      "title": "The World Has Changed. Businesses Must Evolve.",
+      "points": [
+        "Customer expectations continue to rise, demanding personalised, seamless and instant experiences.",
+        "Innovation cycles are becoming shorter while competition is increasing.",
+        "Data is growing exponentially, creating both opportunities and complexity.",
+        "AI is transforming how work is performed, decisions are made and value is created.",
+        "Regulatory, cyber security and governance requirements continue to increase.",
+        "Continuous disruption requires organisations to adapt faster than ever before.",
+        "The challenge is no longer whether change will happen. The challenge is whether organisations can evolve fast enough to respond."
+      ],
+      "facilitator_notes": "Timing: 8 minutes. Ask participants which of these changes has had the greatest impact on their organisation and whether these are technology problems or business problems. Introduce Peter Drucker's quote: 'The greatest danger in times of turbulence is not the turbulence; it is to act with yesterday's logic.' Conclude that technology is not the reason organisations change—the business environment is. Technology accelerates the pace of change."
+    },
+    {
+      "id": "s13",
+      "type": "activity",
+      "activity_id": "a_foundations_evolve"
+    },
+    {
+      "id": "s14",
+      "type": "keypoints",
+      "title": "Foundations Remain. Execution Evolves.",
+      "points": [
+        "Business fundamentals such as strategy, leadership, finance, customer value and governance remain essential.",
+        "Execution evolves through trusted intelligence, AI-enabled capabilities and better decision-making.",
+        "AI augments people rather than simply automating tasks.",
+        "Workflows become more intelligent, adaptive and outcome-focused.",
+        "Successful organisations evolve how they execute, not why they exist.",
+        "Businesses don't succeed because they use AI. They succeed because they execute timeless business principles in better ways."
+      ],
+      "facilitator_notes": "Timing: 10 minutes. Introduce this as the core philosophy of the Executive Operating System™. Ask participants which business foundations should never change and where their organisation is still executing with yesterday's methods. Reinforce that every remaining module will revisit this principle by showing how timeless business disciplines evolve in the AI era."
+    },
+    {
+      "id": "s15",
+      "type": "activity",
+      "activity_id": "a_outcomes_enablers"
+    },
+    {
+      "id": "s16",
+      "type": "keypoints",
+      "title": "The Executive Operating System™",
+      "points": [
+        "Great organisations don't optimise for technology—they optimise for business outcomes.",
+        "Enterprise enablers work together to improve intelligence.",
+        "Better intelligence enables faster, higher-quality decisions.",
+        "Better decisions create sustainable value for customers, employees, shareholders and society.",
+        "Every investment, capability and transformation initiative should ultimately contribute to better intelligence, faster decisions and greater value creation."
+      ],
+      "facilitator_notes": "Timing: 8 minutes. Introduce this as the Executive Operating System™. Explain that leadership, people, operating models, governance, data and technology are enterprise enablers. Their purpose is to improve intelligence, accelerate decision-making and create greater value. Ask participants whether their current investments can be linked to these three outcomes."
+    },
+    {
+      "id": "s17",
+      "type": "image",
+      "title": "The Executive Operating System™",
+      "image": "images/slide16.EOS.png",
+      "caption": "Enterprise enablers work together to create better intelligence, enabling faster decisions and ultimately greater value creation.",
+      "facilitator_notes": "Timing: 8–10 minutes. This is the signature framework of the Executive Operating System™ and will be referenced throughout the programme. Walk through the diagram from the bottom up. Explain that Leadership, People, Operating Model, Trusted Data, AI, Technology and Governance are enterprise enablers. Together they enable Better Intelligence. Better Intelligence leads to Faster Decisions. Faster Decisions create Greater Value Creation. Reinforce that technology is an enabler—not the objective. Every investment, capability and transformation initiative should ultimately improve intelligence, accelerate decision-making and create sustainable business value. Tell participants that every remaining module will strengthen one or more of these enterprise enablers."
+    },
+    {
+      "id": "s18",
+      "type": "activity",
+      "activity_id": "a_three_foundations"
+    },
+    {
+      "id": "s19",
+      "type": "keypoints",
+      "title": "Three Foundations for Success in the AI Era",
+      "points": [
+        "The Right Mindset — Leaders think differently before they act differently. They focus on outcomes, embrace continuous learning, apply critical thinking and lead change with confidence.",
+        "The Right Dataset — Trusted, governed and accessible data enables trusted intelligence and better decision-making across the enterprise.",
+        "The Right Toolset — AI, analytics, automation and modern collaboration tools amplify human capability and improve execution.",
+        "Mindset determines how we think. Dataset determines what we know. Toolset determines how effectively we execute.",
+        "The combination of the right mindset, the right dataset and the right toolset enables better intelligence, faster decisions and greater value creation."
+      ],
+      "facilitator_notes": "Timing: 8 minutes. Reveal the three foundations after the activity. Explain that organisations often invest first in tools, but sustainable transformation starts with mindset, is enabled by trusted data, and is accelerated by the right toolset. Ask participants which of the three foundations is strongest in their organisation and which requires the greatest attention. Conclude that every remaining module in the programme strengthens one or more of these three foundations. The right mindset guides decisions. The right dataset provides trusted intelligence. The right toolset enables execution"
+    },
+    {
+      "id": "s20",
+      "type": "image",
+      "title": "The Executive Operating System™",
+      "image": "images/slide20.EOS.png",
+      "caption": "The right mindset, the right dataset and the right toolset enable better intelligence, faster decisions and greater value creation.",
+      "facilitator_notes": "Timing: 10 minutes. This framework summarises Module 1 and introduces the Executive Operating System™ that will underpin the entire programme. Start at the bottom of the diagram by explaining the three foundations: the Right Mindset, the Right Dataset and the Right Toolset. Explain that these foundations strengthen the enterprise enablers including leadership, people, operating model, AI, technology and governance. These enablers work together to create Better Intelligence. Better Intelligence enables Faster Decisions. Faster Decisions lead to Greater Value Creation for customers, employees, shareholders and society. Reinforce that organisations should not optimise for technology alone; they should optimise for business outcomes. Conclude by explaining that every remaining module in the programme will strengthen one or more of these foundations and enterprise enablers."
+    },
+    {
+      "id": "s21",
+      "type": "title",
+      "title": "Module 2",
+      "subtitle": "Transforming Your Business for the AI Era",
+      "facilitator_notes": "Before introducing this module, return to Slide 20 (The Executive Operating System™) and spend 2–3 minutes revisiting the framework. Remind participants that the Executive Operating System™ is the foundation of the entire programme. Explain that organisations do not transform by implementing AI alone—they transform by building the right mindset, the right dataset and the right toolset, strengthening enterprise enablers, and ultimately creating better intelligence, faster decisions and greater value creation. Then introduce Module 2 by explaining that the focus now shifts from understanding why businesses must evolve to learning how to design and execute a successful transformation."
+    },
+    {
+      "id": "s22",
+      "type": "text",
+      "title": "JourneyX Is Ready to Transform. Where Should You Start?",
+      "body": "Following the Board meeting, everyone agrees on one thing:<br><br><b>JourneyX must transform.</b><br><br>The executive team is eager to act, but each leader has a different opinion about where to begin.<br><br><b>Chief Information Officer (CIO):</b><br>'We need a modern AI platform.'<br><br><b>Chief Financial Officer (CFO):</b><br>'We should reduce costs before making new investments.'<br><br><b>Chief Marketing Officer (CMO):</b><br>'We need to improve the customer experience.'<br><br><b>Chief Operating Officer (COO):</b><br>'Our business processes are too slow.'<br><br><b>Chief Data Officer (CDO):</b><br>'Our data isn't ready.'<br><br>The CEO turns to you and asks:<br><br><b>'If we could only do one thing first, where should we start?'</b><br><br><b>Discussion:</b><br>What would your recommendation be—and why?",
+      "facilitator_notes": "Timing: 8–10 minutes. Encourage participants to debate the different starting points and explain their reasoning. Capture the responses without identifying a correct answer. Reinforce that successful transformation starts with executive alignment rather than immediate action. Conclude by explaining that many transformation programmes fail not because organisations lack ideas, but because leaders are not aligned on where to start. Transition to the next slide by asking: 'Why do so many transformation programmes struggle to deliver the outcomes they promise?'"
+    },
+    {
+      "id": "s23",
+      "type": "activity",
+      "activity_id": "p_transformation_barrier",
+      "facilitator_notes": "Allow participants to vote before opening the discussion. Ask several participants to explain why they chose their answer. Encourage them to distinguish between root causes and symptoms. Do not reveal the answer immediately. Conclude that successful transformation begins with executive alignment around a shared vision, common principles and clear business outcomes."
+    }
+  ],
+  "activities": [
+    {
+      "id": "a_real_ai",
+      "type": "multiple_choice",
+      "title": "Real or AI?",
+      "timer_seconds": 60,
+      "coins": 50,
+      "question": "Looking at the five photos in the collage, which photo do you believe is AI-generated?",
+      "options": [
+        "Photo 1",
+        "Photo 2",
+        "Photo 3",
+        "Photo 4",
+        "Photo 5"
+      ],
+      "correct": 3
+    },
+    {
+      "id": "p_journeyx_barrier",
+      "type": "poll",
+      "title": "What Is Really Holding JourneyX Back?",
+      "timer_seconds": 45,
+      "coins": 0,
+      "question": "Based on the information you've seen so far, what do you believe is the primary reason JourneyX isn't creating the expected business value?",
+      "options": [
+        "Strategy",
+        "Leadership & Culture",
+        "Operating Model",
+        "Data & Intelligence",
+        "Technology",
+        "Governance",
+        "I don't have enough information yet"
+      ]
+    },
+    {
+      "id": "a_foundations_evolve",
+      "type": "drag_drop",
+      "title": "What Changes... and What Doesn't?",
+      "timer_seconds": 90,
+      "coins": 100,
+      "question": "Drag each item into the category where you believe it belongs.",
+      "zones": [
+        "Foundations Remain",
+        "Execution Evolves"
+      ],
+      "items": [
+        {
+          "text": "Business Strategy",
+          "zone": "Foundations Remain"
+        },
+        {
+          "text": "Leadership",
+          "zone": "Foundations Remain"
+        },
+        {
+          "text": "Customer Value",
+          "zone": "Foundations Remain"
+        },
+        {
+          "text": "Financial Management",
+          "zone": "Foundations Remain"
+        },
+        {
+          "text": "Governance",
+          "zone": "Foundations Remain"
+        },
+        {
+          "text": "Decision-Making Speed",
+          "zone": "Execution Evolves"
+        },
+        {
+          "text": "AI-Enabled Workflows",
+          "zone": "Execution Evolves"
+        },
+        {
+          "text": "Human-AI Collaboration",
+          "zone": "Execution Evolves"
+        },
+        {
+          "text": "Digital Experiences",
+          "zone": "Execution Evolves"
+        },
+        {
+          "text": "Intelligent Automation",
+          "zone": "Execution Evolves"
+        }
+      ]
+    },
+    {
+      "id": "a_outcomes_enablers",
+      "type": "drag_drop",
+      "title": "Enterprise Outcomes or Enterprise Enablers?",
+      "timer_seconds": 90,
+      "coins": 100,
+      "question": "Every organisation invests in many initiatives. Some are enterprise outcomes the organisation wants to achieve, while others are enablers that help achieve those outcomes. Drag each item into the correct category.",
+      "zones": [
+        "Enterprise Outcomes",
+        "Enterprise Enablers"
+      ],
+      "items": [
+        {
+          "text": "Better Intelligence",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Faster Decisions",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Greater Value Creation",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Better Customer Outcomes",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Financial Performance",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Sustainable Growth",
+          "zone": "Enterprise Outcomes"
+        },
+        {
+          "text": "Leadership",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Operating Model",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Trusted Data",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "AI",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Technology",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Governance",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Skilled People",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Analytics",
+          "zone": "Enterprise Enablers"
+        },
+        {
+          "text": "Automation",
+          "zone": "Enterprise Enablers"
+        }
+      ]
+    },
+    {
+      "id": "a_three_foundations",
+      "type": "drag_drop",
+      "title": "What Are the Three Foundations for Success in the AI Era?",
+      "timer_seconds": 60,
+      "coins": 100,
+      "question": "Based on everything you have learned in this module, identify the three essential foundations for success in the AI era.",
+      "zones": [
+        "Three Essential Foundations",
+        "Important, But Not Foundational"
+      ],
+      "items": [
+        {
+          "text": "Right Mindset",
+          "zone": "Three Essential Foundations"
+        },
+        {
+          "text": "Right Dataset",
+          "zone": "Three Essential Foundations"
+        },
+        {
+          "text": "Right Toolset",
+          "zone": "Three Essential Foundations"
+        },
+        {
+          "text": "Budget",
+          "zone": "Important, But Not Foundational"
+        },
+        {
+          "text": "Infrastructure",
+          "zone": "Important, But Not Foundational"
+        },
+        {
+          "text": "Processes",
+          "zone": "Important, But Not Foundational"
+        }
+      ]
+    },
+    {
+      "id": "p_transformation_barrier",
+      "type": "poll",
+      "title": "What Is the Biggest Barrier to Successful Business Transformation?",
+      "timer_seconds": 60,
+      "coins": 0,
+      "question": "Based on your experience, what is the biggest barrier preventing organisations from successfully transforming their business for the AI era?",
+      "options": [
+        "Lack of Executive Alignment",
+        "Unclear Vision",
+        "Technology-First Thinking",
+        "Resistance to Change",
+        "Poor Execution",
+        "Lack of Skills",
+        "Other"
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "name": "Amazon gift card",
+      "cost": 300,
+      "description": "$30 AUD",
+      "icon": "gift"
+    },
+    {
+      "name": "Cafe voucher",
+      "cost": 200,
+      "description": "$20 at a café of your choice",
+      "icon": "coffee"
+    },
+    {
+      "name": "Udemy course",
+      "cost": 350,
+      "description": "Any paid Udemy course",
+      "icon": "book"
+    },
+    {
+      "name": "Movie tickets",
+      "cost": 150,
+      "description": "2x cinema tickets",
+      "icon": "ticket"
+    },
+    {
+      "name": "Course certificate",
+      "cost": 500,
+      "description": "Printed & posted",
+      "icon": "award"
+    }
+  ]
+}
