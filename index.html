@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Native Enterprise Mini MBA Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f7f6f2;--surface:#fff;--surface2:#f0ede6;--border:rgba(0,0,0,.09);--border2:rgba(0,0,0,.16);
+  --text:#1a1917;--text2:#6b6860;--text3:#9b998f;
+  --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#3C3489;
+  --teal:#1D9E75;--teal-light:#E1F5EE;--amber:#BA7517;--amber-light:#FAEEDA;
+  --coral:#D85A30;--red:#A32D2D;--red-light:#FCEBEB;--green:#3B6D11;
+  --gold:#c9a227;--silver:#8a8a8a;--bronze:#a0522d;
+  --radius:10px;--radius-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:220px;min-width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto}
+.sidebar-top{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
+.sidebar-logo{font-family:'DM Serif Display',serif;font-size:15px;line-height:1.3;margin-bottom:4px}
+.sidebar-cohort{font-size:11px;color:var(--text3)}
+.nav-section{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;padding:14px 16px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 16px;font-size:13px;cursor:pointer;color:var(--text2);border-left:2px solid transparent;transition:all .12s}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--purple-light);color:var(--purple-dark);border-left-color:var(--purple);font-weight:500}
+.nav-item svg{width:15px;height:15px;flex-shrink:0}
+.sidebar-coins{margin:auto 12px 16px;background:var(--amber-light);border:1px solid rgba(186,117,23,.2);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:8px}
+.coin-count{font-size:20px;font-weight:600;line-height:1}
+.coin-label{font-size:11px;color:var(--text2)}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--border)}
+.topbar-title{font-size:14px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);white-space:nowrap}
+.prog-bar{width:120px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--purple);border-radius:2px;transition:width .4s}
+.content-area{padding:24px;flex:1;overflow-y:auto;min-height:0}
+/* Auto-fit slides: when viewing the slides page, fill the viewport without scrolling */
+.content-area.slides-fit{overflow:hidden!important;display:flex;flex-direction:column;padding:24px}
+.content-area:has(#page-slides.active){overflow:hidden;display:flex;flex-direction:column}
+#page-slides.active{flex:1;display:flex;flex-direction:column;min-height:0}
+#page-slides.active #slideContent{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+#page-slides.active #slideContent .card{flex:1;min-height:0;margin-bottom:12px;overflow:hidden;display:flex;flex-direction:column}
+#page-slides.active #slideContent .card.slide-title-page{justify-content:flex-start;overflow:auto}
+#page-slides.active #slideContent .card-title{flex:0 0 auto}
+#page-slides.active #slideContent .card-sub{flex:0 0 auto}
+#page-slides.active .slide-image{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#page-slides.active .slide-image img{max-height:100%!important;max-width:100%!important;width:auto!important;height:auto!important;object-fit:contain;margin:8px 0}
+#page-slides.active .video-embed{max-height:60vh;margin:8px auto}
+/* Text-only slides can still scroll internally if content is very long */
+#page-slides.active #slideContent .card:not(:has(.slide-image)):not(:has(.video-embed)){overflow:auto}
+/* JS fallback class (for browsers without :has() support) */
+.content-area.slides-fit{overflow:hidden;display:flex;flex-direction:column}
+.page{display:none}.page.active{display:block}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px}
+.card-title{font-size:22px;font-weight:500;margin-bottom:6px}
+.card-sub{font-size:17px;color:var(--text2);line-height:1.6}
+.slide-title-page{text-align:center;padding:40px 24px}
+.slide-title-page h1{font-family:'DM Serif Display',serif;font-size:34px;margin-bottom:8px}
+.key-points{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.key-points li{display:flex;gap:10px;align-items:flex-start;font-size:17px;color:var(--text2);line-height:1.6}
+.kp-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:7px}
+.slide-quote{border-left:3px solid var(--purple);padding-left:16px;margin:16px 0}
+.slide-quote blockquote{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.6}
+.slide-quote cite{font-size:12px;color:var(--text3);font-style:normal;display:block;margin-top:6px}
+.video-embed{width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:var(--surface2);border:1px solid var(--border);margin:12px 0}
+.video-embed iframe{width:100%;height:100%;border:none}
+.slide-image img{width:100%;height:auto;display:block;border-radius:var(--radius);margin:12px 0}
+.chart-sliders{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.chart-row{display:flex;align-items:center;gap:10px}
+.chart-label{font-size:12px;color:var(--text2);width:70px;flex-shrink:0}
+.chart-row input[type=range]{flex:1}
+.chart-val{font-size:12px;font-weight:500;width:20px;text-align:right}
+.bar-chart{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:12px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bar-rect{width:100%;border-radius:4px 4px 0 0;min-height:4px;background:var(--purple);transition:height .3s}
+.bar-lbl{font-size:10px;color:var(--text3);text-align:center}
+.bar-num{font-size:11px;font-weight:500}
+.act-table{width:100%;border-collapse:collapse;font-size:13px}
+.act-table th{padding:8px 10px;text-align:left;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);background:var(--surface2);font-size:12px}
+.act-table td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.act-table input{width:100%;border:none;background:transparent;font-size:13px;font-family:inherit;outline:none;padding:2px 0;border-bottom:1px solid transparent;transition:border-color .15s;color:var(--text)}
+.act-table input:focus{border-bottom-color:var(--purple)}
+/* ── STATIC TABLE ─────────────────────────────────────────────── */
+.stbl-wrap{width:100%;overflow-x:auto;margin:12px 0}
+.stbl{width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;table-layout:auto}
+.stbl thead tr{background:var(--purple);color:#fff}
+.stbl thead th{padding:11px 14px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.02em;white-space:nowrap}
+.stbl thead th:first-child{border-radius:8px 0 0 0}
+.stbl thead th:last-child{border-radius:0 8px 0 0}
+.stbl tbody tr:nth-child(even){background:rgba(83,74,183,.04)}
+.stbl tbody tr:nth-child(odd){background:var(--surface)}
+.stbl tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+.stbl tbody td{padding:10px 14px;color:var(--text);vertical-align:top;font-size:14px;line-height:1.6}
+.stbl tbody td:first-child{font-weight:600;color:var(--text);white-space:nowrap;min-width:120px}
+.stbl-footer{font-size:13px;color:var(--text2);font-style:italic;margin-top:10px;padding:8px 12px;border-left:3px solid var(--purple);background:var(--purple-light);border-radius:0 6px 6px 0;line-height:1.5}
+.timer-bar-wrap{margin-bottom:16px}
+.timer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.timer-label{font-size:12px;color:var(--text2)}
+.timer-count{font-size:13px;font-weight:600;color:var(--purple);font-variant-numeric:tabular-nums}
+.timer-count.urgent{color:var(--red)}
+.timer-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.timer-fill{height:100%;background:var(--purple);border-radius:3px;transition:width .9s linear,background .3s}
+.timer-fill.urgent{background:var(--red)}
+.waiting-state{text-align:center;padding:32px 24px;background:var(--surface2);border-radius:var(--radius)}
+.waiting-state p{font-size:14px;color:var(--text2);margin-top:8px}
+.locked-state{text-align:center;padding:24px;background:var(--surface2);border-radius:var(--radius)}
+.locked-state p{font-size:13px;color:var(--text2)}
+.locked-state .missed{font-size:12px;color:var(--red);margin-top:4px}
+.completed-state{text-align:center;padding:24px;background:var(--teal-light);border-radius:var(--radius);border:1px solid rgba(29,158,117,.15)}
+.completed-state p{font-size:13px;color:var(--green)}
+.mc-options{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.mc-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;transition:all .12s}
+.mc-opt:hover{border-color:var(--purple);background:var(--purple-light)}
+.mc-opt.correct{border-color:var(--teal);background:var(--teal-light);color:var(--green)}
+.mc-opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.mc-marker{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:var(--text2)}
+.fill-items{display:flex;flex-direction:column;gap:16px;margin-top:14px}
+.fill-sentence{font-size:14px;line-height:2.2}
+.fill-input{display:inline-block;min-width:90px;border:none;border-bottom:2px solid var(--purple);background:transparent;font-size:14px;font-family:inherit;color:var(--text);padding:0 4px;outline:none}
+.fill-input.ok{border-bottom-color:var(--teal);color:var(--green)}
+.fill-input.err{border-bottom-color:var(--red);color:var(--red)}
+.drag-source{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;padding:12px;background:var(--surface2);border-radius:var(--radius);border:1px dashed var(--border2);min-height:52px}
+.drag-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.drag-zone-title{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px}
+.drag-zone{min-height:80px;padding:8px;border:1.5px dashed var(--border2);border-radius:var(--radius);display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;transition:border-color .12s,background .12s}
+.drag-zone.over{border-color:var(--purple);background:var(--purple-light)}
+.drag-chip{padding:5px 10px;border:1px solid var(--border2);border-radius:var(--radius);font-size:12px;cursor:grab;background:var(--surface);user-select:none;transition:all .1s}
+.drag-chip:hover{border-color:var(--purple);background:var(--purple-light);color:var(--purple-dark)}
+.drag-chip.correct-chip{border-color:var(--teal);background:var(--teal-light);color:var(--green)}
+.drag-chip.wrong-chip{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text);font-size:13px;font-family:inherit;cursor:pointer;transition:all .12s;font-weight:500}
+.btn:hover{background:var(--surface2)}
+.btn:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+.btn-primary{background:var(--purple);color:#fff;border-color:var(--purple)}
+.btn-primary:hover{background:var(--purple-dark)}
+.btn-success{background:var(--teal);color:#fff;border-color:var(--teal)}
+.btn-danger{background:var(--coral);color:#fff;border-color:var(--coral)}
+.slide-nav{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.slide-dots{display:flex;gap:5px;flex:1;justify-content:center;flex-wrap:wrap}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--border2);cursor:pointer;transition:background .15s}
+.sdot.done{background:var(--purple);opacity:.5}
+.sdot.current{background:var(--purple);width:20px;border-radius:4px}
+.feedback{padding:10px 14px;border-radius:var(--radius);font-size:13px;margin-top:12px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:var(--teal-light);color:var(--green);border:1px solid rgba(29,158,117,.2)}
+.feedback.err{background:var(--red-light);color:var(--red);border:1px solid rgba(163,45,45,.2)}
+.lb-podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+.podium-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 12px;text-align:center}
+.podium-card.rank1{border-color:var(--gold);background:linear-gradient(160deg,#fffdf0,#fff8d6)}
+.podium-card.rank2{border-color:var(--silver)}
+.podium-card.rank3{border-color:var(--bronze)}
+.podium-medal{font-size:22px;margin-bottom:6px}
+.podium-name{font-size:13px;font-weight:500;margin-bottom:4px}
+.podium-coins{font-size:17px;font-weight:600;color:var(--amber)}
+.lb-rest{font-size:13px;color:var(--text2);text-align:center;padding:10px;background:var(--surface2);border-radius:var(--radius);margin-top:8px}
+.rewards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.reward-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 14px;text-align:center}
+.reward-card.unlocked:hover{border-color:var(--purple)}
+.reward-card.locked-reward{opacity:.5}
+.reward-icon{font-size:26px;margin-bottom:8px}
+.reward-name{font-size:13px;font-weight:500;margin-bottom:3px}
+.reward-desc{font-size:11px;color:var(--text3);margin-bottom:10px}
+.reward-cost{display:flex;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--amber);margin-bottom:12px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.admin-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px}
+.admin-card h3{font-size:14px;font-weight:500;margin-bottom:12px}
+.act-queue{display:flex;flex-direction:column;gap:6px}
+.act-queue-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius);font-size:13px}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.waiting{background:var(--border2)}
+.status-dot.running{background:var(--teal);animation:pulse 1.5s infinite}
+.status-dot.locked{background:var(--red)}
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;width:340px;text-align:center}
+.login-box h1{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px}
+.login-box p{font-size:13px;color:var(--text2);margin-bottom:24px}
+.login-box input{width:100%;padding:10px 14px;border:1px solid var(--border2);border-radius:var(--radius);font-size:14px;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;margin-bottom:10px}
+.login-box input:focus{border-color:var(--purple)}
+.login-mode-toggle{font-size:12px;color:var(--text3);margin-top:14px}
+.login-mode-toggle span{color:var(--purple);cursor:pointer}
+.login-err{font-size:12px;color:var(--red);margin-top:6px;min-height:18px}
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99;gap:12px}
+.loading-screen p{font-size:13px;color:var(--text2)}
+.spinner{width:32px;height:32px;border:3px solid var(--border2);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--text);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:13px;opacity:0;transform:translateY(8px);transition:all .25s;z-index:200;pointer-events:none;max-width:280px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.coin-toast{background:var(--amber)}
+.admin-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;background:var(--purple-light);color:var(--purple-dark);margin-left:8px}
+.session-banner{background:var(--purple-light);border:1px solid rgba(83,74,183,.2);border-radius:var(--radius);padding:10px 16px;display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:13px;color:var(--purple-dark)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;margin-right:5px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+svg.ico{display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.edit-slide-btn{position:fixed;top:64px;right:24px;z-index:50;background:var(--purple);color:#fff;border:none;border-radius:var(--radius);padding:9px 16px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:6px}
+.edit-slide-btn:hover{background:var(--purple-dark)}
+.editor-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:flex;align-items:center;justify-content:center;padding:24px}
+.editor-modal{background:var(--surface);border-radius:var(--radius-lg);width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.editor-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.editor-head h3{font-size:15px;font-weight:500}
+.editor-close{background:none;border:none;font-size:18px;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:6px}
+.editor-close:hover{background:var(--surface2);color:var(--text)}
+.editor-body{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;overflow:hidden}
+.editor-fields{padding:20px;overflow-y:auto;border-right:1px solid var(--border)}
+.editor-preview-wrap{padding:20px;overflow-y:auto;background:var(--bg)}
+.editor-preview-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.editor-field{margin-bottom:18px}
+.editor-field-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;display:block;text-transform:capitalize}
+.editor-toolbar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;padding:6px;background:var(--surface2);border-radius:6px}
+.tb-btn{background:var(--surface);border:1px solid var(--border2);border-radius:5px;padding:4px 9px;font-size:12px;cursor:pointer;color:var(--text);font-family:inherit;min-width:30px}
+.tb-btn:hover{background:var(--purple-light);border-color:var(--purple)}
+.tb-btn b{font-weight:700}
+.tb-btn i{font-style:italic}
+.tb-color{width:24px;height:24px;border-radius:5px;border:1px solid var(--border2);cursor:pointer;padding:0}
+.editor-textarea{width:100%;min-height:90px;border:1px solid var(--border2);border-radius:6px;padding:10px;font-size:13px;font-family:inherit;line-height:1.6;color:var(--text);resize:vertical;outline:none}
+.editor-textarea:focus{border-color:var(--purple)}
+.editor-textarea.single{min-height:auto;height:38px;resize:none}
+.editor-hint{font-size:11px;color:var(--text3);margin-top:4px}
+.preview-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px}
+.poll-opts{display:flex;flex-direction:column;gap:10px}
+.poll-opt{border:1px solid var(--border2);border-radius:var(--radius);padding:10px 14px;cursor:pointer;transition:all .12s;background:var(--surface)}
+.poll-opt:hover{border-color:var(--purple);background:var(--purple-light)}
+.poll-opt.voted{border-color:var(--purple);border-width:2px}
+.poll-opt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.poll-opt-label{font-size:14px;color:var(--text);font-weight:500}
+.poll-opt-pct{font-size:13px;color:var(--purple-dark);font-weight:600;font-variant-numeric:tabular-nums}
+.poll-bar-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.poll-bar-fill{height:100%;background:var(--purple);border-radius:4px;transition:width .4s ease}
+.poll-total{font-size:12px;color:var(--text3);margin-top:10px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="spinner"></div>
+  <p>Connecting securely…</p>
+</div>
+
+<div class="login-screen" id="loginScreen" style="display:none">
+  <div class="login-box">
+    <h1 id="loginTitle">AI MBA Lab</h1>
+    <p id="loginDesc">Enter your name to join the course</p>
+    <input type="text" id="loginInput" placeholder="Your name" maxlength="30">
+    <div class="login-err" id="loginErr"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px" onclick="doLogin()">Join course</button>
+    <p class="login-mode-toggle">Facilitator? <span onclick="toggleLoginMode()">Switch to admin login</span></p>
+  </div>
+</div>
+
+<div class="app" id="appShell" style="display:none">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo" id="sidebarTitle">AI MBA Lab</div>
+      <div class="sidebar-cohort" id="sidebarCohort">Loading…</div>
+    </div>
+    <span class="nav-section">Content</span>
+    <div class="nav-item active" id="nav-slides" onclick="navTo('slides')">
+      <svg class="ico" width="15" height="15" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Slides
+    </div>
+    <span class="nav-section">Progress</span>
+    <div class="nav-item" id="nav-leaderboard" onclick="navTo('leaderboard')">
+      <svg class="ico" width="15" height="15" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Leaderboard
+    </div>
+    <div class="nav-item" id="nav-rewards" onclick="navTo('rewards')">
+      <svg class="ico" width="15" height="15" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+      Rewards
+    </div>
+    <div class="nav-item" id="nav-admin" onclick="navTo('admin')" style="display:none">
+      <svg class="ico" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+      Admin panel <span class="admin-badge">ADMIN</span>
+    </div>
+    <div class="sidebar-coins" id="coinBadge">
+      <div style="color:var(--amber);font-size:18px">◈</div>
+      <div><div class="coin-count" id="coinDisplay">0</div><div class="coin-label">your coins</div></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Loading…</div>
+      <div class="prog-wrap">
+        <span id="progText">0 / 0</span>
+        <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+        <span style="margin-left:8px;font-size:11px;color:var(--teal)"><span class="live-dot"></span>live</span>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="page active" id="page-slides">
+        <div id="slideContent"></div>
+        <div class="slide-nav" id="slideNav" style="display:none">
+          <button class="btn" onclick="adminPrev()"><svg class="ico" width="14" height="14" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Prev</button>
+          <div class="slide-dots" id="slideDots"></div>
+          <button class="btn btn-primary" onclick="adminNext()">Next <svg class="ico" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div class="page" id="page-leaderboard">
+        <div class="lb-podium" id="lbPodium"></div>
+        <div class="lb-rest" id="lbRest"></div>
+        <p style="font-size:11px;color:var(--text3);margin-top:12px;text-align:center">Only the top 3 at course end can redeem rewards. Coins accumulate across all sessions.</p>
+        <div id="syncScoreBtn" style="text-align:center;margin-top:16px;display:none">
+          <button class="btn" onclick="syncMyScore()" style="font-size:12px">
+            <svg class="ico" width="13" height="13" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+            Sync my score to leaderboard
+          </button>
+        </div>
+      </div>
+      <div class="page" id="page-rewards">
+        <div id="rewardsGate"></div>
+        <div class="rewards-grid" id="rewardsGrid"></div>
+      </div>
+      <div class="page" id="page-admin">
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h3>Session control</h3>
+            <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Advances slide for ALL participants instantly</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <button class="btn" onclick="adminPrev()"><svg class="ico" width="13" height="13" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Prev</button>
+              <span style="font-size:15px;font-weight:600;color:var(--purple);min-width:80px;text-align:center" id="adminSlideNum">–</span>
+              <button class="btn btn-primary" onclick="adminNext()">Next <svg class="ico" width="13" height="13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+            <button class="btn btn-danger" onclick="endCohort()" style="width:100%;justify-content:center">End cohort &amp; unlock rewards</button>
+            
+          </div>
+          <div class="admin-card">
+            <h3>Live participants</h3>
+            <div id="adminParticipants"><p style="font-size:12px;color:var(--text3)">Waiting…</p></div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Activity launcher</h3>
+          <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Click Start — countdown begins instantly on every participant screen.</p>
+          <div class="act-queue" id="actQueue"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="editor-overlay" id="editorOverlay" style="display:none">
+  <div class="editor-modal">
+    <div class="editor-head">
+      <h3>Edit slide content</h3>
+      <button class="editor-close" onclick="closeEditor()">✕</button>
+    </div>
+    <div class="editor-body">
+      <div class="editor-fields" id="editorFields"></div>
+      <div class="editor-preview-wrap">
+        <div class="editor-preview-label">Live preview — how participants will see it</div>
+        <div class="editor-preview" id="editorPreview"></div>
+      </div>
+    </div>
+    <div class="editor-foot">
+      <button class="btn" onclick="closeEditor()">Cancel</button>
+      <button class="btn" onclick="exportJSON()"><svg class="ico" width="13" height="13" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export updated JSON</button>
+      <button class="btn btn-primary" onclick="saveEditor()"><svg class="ico" width="13" height="13" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save for everyone (live)</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp }            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+
+// ── FIREBASE CONFIG ──────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCCy6TAAEcIoA4Q6doJ97Xh6WcRy0OyFlE",
+  authDomain: "ai-mba-lab.firebaseapp.com",
+  databaseURL: "https://ai-mba-lab-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ai-mba-lab",
+  storageBucket: "ai-mba-lab.firebasestorage.app",
+  messagingSenderId: "229947219878",
+  appId: "1:229947219878:web:851db287bc63c6fa57f967"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db   = getDatabase(firebaseApp);
+
+
+// ── STATE ────────────────────────────────────────────────────────
+let CFG = null;
+let USER = { name: null, isAdmin: false, coins: 0, completed: {} };
+let loginMode = 'participant';
+let activeTimers = {};
+let dragData = {};
+
+// ── DB HELPERS ───────────────────────────────────────────────────
+function cRef(path) {
+  const id = CFG ? CFG.course.cohort_id : 'default';
+  return ref(db, `cohorts/${id}/${path}`);
+}
+const dbSet    = (path, val) => set(cRef(path), val);
+const dbGet    = (path)      => get(cRef(path));
+const dbListen = (path, cb)  => onValue(cRef(path), s => cb(s.val()));
+
+// Leaderboard key uses Firebase UID so only the owner can write their own score
+function lbKey(name) { return name.replace(/[.#$\[\]\/]/g,"_"); }
+
+// ── BOOT: sign in anonymously first, then show login ─────────────
+// ── BOOT ────────────────────────────────────────────────────────
+async function boot() {
+  try { const r = await fetch('course-config.json'); if (r.ok) CFG = await r.json(); } catch(e) {}
+  if (!CFG) CFG = getSampleConfig();
+  document.getElementById('loadingScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display   = 'flex';
+}
+boot();
+
+// ── LOGIN ────────────────────────────────────────────────────────
+window.toggleLoginMode = function() {
+  loginMode = loginMode === 'participant' ? 'admin' : 'participant';
+  document.getElementById('loginTitle').textContent    = loginMode === 'admin' ? 'Facilitator login' : 'AI MBA Lab';
+  document.getElementById('loginDesc').textContent     = loginMode === 'admin' ? 'Enter the facilitator password' : 'Enter your name to join the course';
+  const inp = document.getElementById('loginInput');
+  inp.placeholder = loginMode === 'admin' ? 'Password' : 'Your name';
+  inp.type        = loginMode === 'admin' ? 'password' : 'text';
+  document.querySelector('.login-mode-toggle').innerHTML = loginMode === 'admin'
+    ? 'Participant? <span onclick="toggleLoginMode()">Switch to participant login</span>'
+    : 'Facilitator? <span onclick="toggleLoginMode()">Switch to admin login</span>';
+};
+
+document.getElementById('loginInput').addEventListener('keydown', e => { if (e.key === 'Enter') window.doLogin(); });
+
+window.doLogin = async function() {
+  const val = document.getElementById('loginInput').value.trim();
+  if (!val) { document.getElementById('loginErr').textContent = 'Please enter a value.'; return; }
+
+  if (loginMode === 'admin') {
+    if (val !== CFG.course.facilitator_password) { document.getElementById('loginErr').textContent = 'Incorrect password.'; return; }
+    USER.isAdmin = true;
+    USER.name    = 'Facilitator';
+  } else {
+    USER.name    = val;
+    USER.isAdmin = false;
+  }
+
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appShell').style.display    = 'flex';
+  await initApp();
+};
+
+// ── INIT ─────────────────────────────────────────────────────────
+async function initApp() {
+  document.getElementById('sidebarTitle').textContent  = CFG.course.title;
+  document.getElementById('sidebarCohort').textContent = CFG.course.cohort_id || 'Cohort 1';
+
+  // Restore local progress
+  const saved = localStorage.getItem(`mba_${CFG.course.cohort_id}_${USER.name}`);
+  if (saved) { const p = JSON.parse(saved); USER.coins = p.coins||0; USER.completed = p.completed||{}; }
+
+  updateCoinDisplay();
+
+  if (USER.isAdmin) {
+    document.getElementById('nav-admin').style.display = 'flex';
+    document.getElementById('coinBadge').style.display = 'none';
+  }
+
+  // ── REAL-TIME LISTENERS ──
+  // Content overrides (slides edited live in-app) — apply for everyone
+  dbListen('contentOverride/slides', val => {
+    if (val && Array.isArray(val)) {
+      CFG.slides = val;
+      // Re-render current slide to reflect edits
+      dbGet('session/slide').then(s => {
+        const cur = s.val() || 0;
+        renderSlide(cur); renderDots(cur); updateProgress(cur);
+      });
+    }
+  });
+
+  dbListen('session/slide', val => {
+    const slide = val || 0;
+    if (!USER.isAdmin) { renderSlide(slide); renderDots(slide); updateProgress(slide); }
+  });
+
+  dbListen('activities', async val => {
+    const acts = val || {};
+    for (const [actId, actState] of Object.entries(acts)) {
+      const act = CFG ? CFG.activities.find(a => a.id === actId) : null;
+      const isPoll = act && act.type === 'poll';
+
+      if (actState.status === 'running' && !activeTimers[actId] && (isPoll || !USER.completed[actId])) {
+        const slideIdx = CFG ? CFG.slides.findIndex(s => s.type === 'activity' && s.activity_id === actId) : -1;
+        const slideSnap = await dbGet('session/slide');
+        const currentSlide = slideSnap.val() || 0;
+        if (!USER.isAdmin && slideIdx === currentSlide) {
+          renderSlide(currentSlide);
+        }
+        setTimeout(() => {
+          const container = document.getElementById('actLive_' + actId);
+          if (!container) return;
+          if (isPoll) {
+            // poll renders its own timer via renderActivitySlide; ensure timer running
+            if (!activeTimers[actId]) {
+              if (!container.querySelector('.timer-bar-wrap')) {
+                container.insertAdjacentHTML('afterbegin', `<div class="timer-bar-wrap"><div class="timer-header"><span class="timer-label">Time remaining</span><span class="timer-count" id="timerCount_${actId}">–</span></div><div class="timer-track"><div class="timer-fill" id="timerFill_${actId}" style="width:100%"></div></div></div>`);
+              }
+              startPollTimer(actId, actState.deadline);
+            }
+          } else {
+            startLocalTimer(actId, actState.deadline);
+          }
+        }, 120);
+      }
+
+      if (actState.status === 'locked') {
+        if (activeTimers[actId]) lockActivity(actId);
+        if (isPoll) {
+          // Re-render to show final poll results (not a locked message)
+          const slideIdx = CFG ? CFG.slides.findIndex(s => s.type === 'activity' && s.activity_id === actId) : -1;
+          const slideSnap = await dbGet('session/slide');
+          const currentSlide = slideSnap.val() || 0;
+          if (!USER.isAdmin && slideIdx === currentSlide) {
+            renderSlide(currentSlide);
+            setTimeout(() => lockActivity(actId), 150);
+          }
+        } else if (!USER.isAdmin && !USER.completed[actId]) {
+          const slideIdx = CFG ? CFG.slides.findIndex(s => s.type === 'activity' && s.activity_id === actId) : -1;
+          const slideSnap = await dbGet('session/slide');
+          const currentSlide = slideSnap.val() || 0;
+          if (slideIdx === currentSlide) renderSlide(currentSlide);
+        }
+      }
+    }
+    if (USER.isAdmin) renderAdmin();
+  });
+
+  dbListen('leaderboard', val => {
+    const lb = val || {};
+    if (document.getElementById('page-leaderboard').classList.contains('active')) renderLeaderboard(lb);
+    if (document.getElementById('page-rewards').classList.contains('active'))     renderRewards(lb);
+    if (USER.isAdmin) renderAdminParticipants(lb);
+  });
+
+  dbListen('session/cohortEnded', val => {
+    if (val && document.getElementById('page-rewards').classList.contains('active')) {
+      dbGet('leaderboard').then(s => renderRewards(s.val()||{}));
+    }
+  });
+
+  // Live poll results — update bars for everyone as votes come in
+  dbListen('polls', val => {
+    const polls = val || {};
+    for (const [actId, data] of Object.entries(polls)) {
+      renderPollResults(actId, data.votes || {});
+    }
+  });
+
+  // Push coins if returning participant
+  if (!USER.isAdmin && USER.coins > 0) await pushCoins();
+
+  // Get initial slide for admin
+  if (USER.isAdmin) {
+    const snap = await dbGet('session/slide');
+    const slide = snap.val() || 0;
+    renderSlide(slide); renderDots(slide); updateProgress(slide); renderAdmin();
+  }
+
+  navTo('slides');
+}
+
+// ── SLIDE RENDERING ──────────────────────────────────────────────
+function renderSlide(slideIdx) {
+  if (!CFG) return;
+  const idx   = Math.min(slideIdx || 0, CFG.slides.length - 1);
+  const slide = CFG.slides[idx];
+  const el    = document.getElementById('slideContent');
+  document.getElementById('slideNav').style.display = USER.isAdmin ? 'flex' : 'none';
+
+  let html = '';
+  if (slide.type === 'title') {
+    html = `<div class="card slide-title-page"><h1>${slide.title}</h1><p style="font-size:18px;color:var(--text2);margin-top:4px">${slide.subtitle||''}</p>${slide.body?`<p style="font-size:17px;color:var(--text2);margin-top:16px;line-height:1.7;max-width:600px;margin-left:auto;margin-right:auto">${slide.body}</p>`:''}</div>`;
+  } else if (slide.type === 'text') {
+    html = `<div class="card"><div class="card-title">${slide.title}</div><p style="font-size:17px;line-height:1.8;color:var(--text2);margin-top:10px">${slide.body}</p></div>`;
+  } else if (slide.type === 'image') {
+    html = `<div class="card"><div class="card-title">${slide.title}</div><div class="slide-image"><img src="${slide.image_url}" alt="${slide.title}"></div>${slide.body?`<p class="card-sub">${slide.body}</p>`:''}</div>`;
+  } else if (slide.type === 'keypoints') {
+    const pts = slide.points.map(p=>`<li><span class="kp-dot"></span><span>${p}</span></li>`).join('');
+    html = `<div class="card"><div class="card-title">${slide.title}</div><ul class="key-points">${pts}</ul></div>`;
+  } else if (slide.type === 'video') {
+    html = `<div class="card"><div class="card-title">${slide.title}</div><p class="card-sub" style="margin-bottom:12px">${slide.description||''}</p><div class="video-embed"><iframe src="${slide.video_url}" allowfullscreen></iframe></div></div>`;
+  } else if (slide.type === 'quote') {
+    html = `<div class="card"><div class="card-title">${slide.title}</div><div class="slide-quote"><blockquote>"${slide.quote}"</blockquote>${slide.attribution?`<cite>— ${slide.attribution}</cite>`:''}</div></div>`;
+  } else if (slide.type === 'chart') {
+    const axes = slide.axes||[];
+    const sliders = axes.map((a,i)=>`<div class="chart-row"><span class="chart-label">${a}</span><input type="range" min="0" max="10" value="5" oninput="updateChartVal(${i},this.value)"><span class="chart-val" id="cv${i}">5</span></div>`).join('');
+    const bars    = axes.map((a,i)=>`<div class="bar-col"><span class="bar-num" id="bn${i}">5</span><div class="bar-rect" id="br${i}" style="height:50px"></div><span class="bar-lbl">${a}</span></div>`).join('');
+    html = `<div class="card"><div class="card-title">${slide.title}</div><p class="card-sub" style="margin-bottom:14px">${slide.description||''}</p><div class="chart-sliders">${sliders}</div><div class="bar-chart">${bars}</div></div>`;
+  } else if (slide.type === 'table') {
+    const cols = slide.columns||[], rows = slide.rows||[];
+    const ths  = cols.map(c=>`<th>${c}</th>`).join('');
+    const trs  = rows.map((r,ri)=>{
+      const tds = cols.map((_,ci)=>ci===0
+        ?`<td style="font-size:13px;color:var(--text2);padding:8px 10px;border-bottom:1px solid var(--border)">${r}</td>`
+        :`<td><input class="act-table" placeholder="…" id="tbl_${ri}_${ci}"></td>`).join('');
+      return `<tr>${tds}</tr>`;
+    }).join('');
+    html = `<div class="card"><div class="card-title">${slide.title}</div><p class="card-sub" style="margin-bottom:14px">${slide.description||''}</p><div style="overflow-x:auto"><table class="act-table"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div></div>`;
+  } else if (slide.type === 'static_table') {
+    const cols = slide.columns || [];
+    const rows = slide.rows || [];
+    const ths = cols.map(c => `<th>${c}</th>`).join('');
+    const trs = rows.map(row => {
+      const cells = Array.isArray(row) ? row : [row];
+      const tds = cols.map((_, ci) => `<td>${cells[ci] || ''}</td>`).join('');
+      return `<tr>${tds}</tr>`;
+    }).join('');
+    const footer = slide.footer
+      ? `<div class="stbl-footer">${slide.footer}</div>` : '';
+    html = `<div class="card">
+      <div class="card-title">${slide.title}</div>
+      ${slide.description ? `<p class="card-sub" style="margin-bottom:14px">${slide.description}</p>` : ''}
+      <div class="stbl-wrap">
+        <table class="stbl">
+          <thead><tr>${ths}</tr></thead>
+          <tbody>${trs}</tbody>
+        </table>
+      </div>
+      ${footer}
+    </div>`;
+  } else if (slide.type === 'activity') {
+    html = renderActivitySlide(slide.activity_id, idx);
+  }
+  // Facilitator-only notes (participants never see these)
+  if (USER.isAdmin && slide.facilitator_notes) {
+    html += `<div style="background:#FFF8E1;border:1px solid #FAC775;border-left:4px solid #BA7517;border-radius:10px;padding:14px 16px;margin-top:4px">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#633806;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">
+        <svg class="ico" width="13" height="13" viewBox="0 0 24 24" style="color:#BA7517"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+        Facilitator notes — only you can see this
+      </div>
+      <div style="font-size:13px;color:#633806;line-height:1.6">${slide.facilitator_notes}</div>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+
+  // Floating "Edit slide" button for facilitator (text-based slides only)
+  const existingBtn = document.getElementById('editSlideBtn');
+  if (existingBtn) existingBtn.remove();
+  const editable = ['title','text','image','keypoints','video','quote','static_table'].includes(slide.type);
+  if (USER.isAdmin && editable) {
+    const btn = document.createElement('button');
+    btn.id = 'editSlideBtn';
+    btn.className = 'edit-slide-btn';
+    btn.innerHTML = '<svg class="ico" width="14" height="14" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit this slide';
+    btn.onclick = () => openEditor(idx);
+    document.body.appendChild(btn);
+  }
+}
+
+// ── ACTIVITY RENDERING ───────────────────────────────────────────
+function renderActivitySlide(actId, slideIdx) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act) return `<div class="card"><p>Activity not found: ${actId}</p></div>`;
+  const isCompleted = USER.completed[actId] !== undefined;
+
+  let inner = '';
+  // Polls: always render the poll form so results (live or final) stay visible
+  if (act.type === 'poll') {
+    inner = `<div id="actLive_${actId}">${buildActivityForm(act)}</div>`;
+    // After render, load any existing votes and apply timer/lock state
+    setTimeout(() => {
+      dbGet(`polls/${actId}/votes`).then(s => renderPollResults(actId, s.val() || {}));
+      // If this user already voted, mark it and disable
+      if (votedPolls[actId] !== undefined) {
+        const el = document.getElementById(`pollopt_${actId}_${votedPolls[actId]}`);
+        if (el) el.classList.add('voted');
+        document.querySelectorAll(`[id^="pollopt_${actId}_"]`).forEach(e => e.onclick = null);
+      }
+      // Apply running/locked state from Firebase
+      dbGet(`activities/${actId}`).then(s => {
+        const st = s.val();
+        if (st && st.status === 'running' && st.deadline > Date.now()) {
+          // show timer
+          const cont = document.getElementById('actLive_' + actId);
+          if (cont && !cont.querySelector('.timer-bar-wrap')) {
+            cont.insertAdjacentHTML('afterbegin', `<div class="timer-bar-wrap"><div class="timer-header"><span class="timer-label">Time remaining</span><span class="timer-count" id="timerCount_${actId}">–</span></div><div class="timer-track"><div class="timer-fill" id="timerFill_${actId}" style="width:100%"></div></div></div>`);
+            startPollTimer(actId, st.deadline);
+          }
+        } else if (st && st.status === 'locked') {
+          lockActivity(actId);
+        }
+      });
+    }, 60);
+  } else if (isCompleted) {
+    inner = `<div class="completed-state"><svg class="ico" width="28" height="28" viewBox="0 0 24 24" style="color:var(--teal)"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p style="margin-top:8px">Completed — you earned <strong>${USER.completed[actId]} coins</strong></p></div>`;
+  } else {
+    inner = `<div id="actLive_${actId}"><div class="waiting-state"><svg class="ico" width="32" height="32" viewBox="0 0 24 24" style="display:block;margin:0 auto"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><p>Waiting for facilitator to start this activity…</p></div></div>`;
+  }
+
+  return `<div class="card"><div class="card-title">${act.title}</div>
+    <p class="card-sub" style="margin-bottom:14px">
+      <span style="background:var(--purple-light);color:var(--purple-dark);font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;margin-right:6px">${act.type.replace('_',' ')}</span>
+      ${act.type==='poll' ? '<span style="font-size:12px;color:var(--text3)">live poll</span>' : `<span style="font-size:12px;color:var(--amber)">◈ ${act.coins} coins</span>`}
+      <span style="font-size:12px;color:var(--text3);margin-left:8px">⏱ ${act.timer_seconds}s</span>
+    </p>${inner}</div>`;
+}
+
+// Poll-specific timer that does NOT clear results when done
+function startPollTimer(actId, deadline) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act) return;
+  const totalMs = act.timer_seconds * 1000;
+  activeTimers[actId] = true;
+  function tick() {
+    const remaining = Math.max(0, deadline - Date.now());
+    const secs = Math.ceil(remaining / 1000);
+    const pct = Math.round((remaining / totalMs) * 100);
+    const ce = document.getElementById('timerCount_' + actId);
+    const fe = document.getElementById('timerFill_' + actId);
+    if (ce) { ce.textContent = secs + 's'; ce.className = 'timer-count' + (secs <= 10 ? ' urgent' : ''); }
+    if (fe) { fe.style.width = pct + '%'; fe.className = 'timer-fill' + (secs <= 10 ? ' urgent' : ''); }
+    if (remaining > 0) activeTimers[actId] = setTimeout(tick, 300);
+    else lockActivity(actId);
+  }
+  tick();
+}
+
+function buildTimerAndForm(act, deadline) {
+  return `<div class="timer-bar-wrap">
+    <div class="timer-header"><span class="timer-label">Time remaining</span><span class="timer-count" id="timerCount_${act.id}">–</span></div>
+    <div class="timer-track"><div class="timer-fill" id="timerFill_${act.id}" style="width:100%"></div></div>
+  </div>${buildActivityForm(act)}`;
+}
+
+function buildActivityForm(act) {
+  if (act.type === 'multiple_choice') {
+    const opts = act.options.map((o,i)=>`<div class="mc-opt" id="mc_${act.id}_${i}" onclick="selectMC('${act.id}',${i})"><span class="mc-marker">${String.fromCharCode(65+i)}</span>${o}</div>`).join('');
+    return `<p style="font-size:14px;font-weight:500;margin-bottom:4px">${act.question}</p><div class="mc-options">${opts}</div><div class="feedback" id="fb_${act.id}"></div>`;
+  }
+  if (act.type === 'fill_blank') {
+    const items = act.items.map((it,i)=>{const p=it.text.split('___');return `<div class="fill-sentence">${p[0]}<input class="fill-input" id="fi_${act.id}_${i}" data-answer="${it.answer}" placeholder="…">${p[1]||''}</div>`;}).join('');
+    return `<div class="fill-items">${items}</div><div class="feedback" id="fb_${act.id}"></div><button class="btn btn-success" style="margin-top:14px" onclick="checkFill('${act.id}')">Check answers</button>`;
+  }
+  if (act.type === 'drag_drop') {
+    const chips = act.items.map(d=>`<div class="drag-chip" draggable="true" id="chip_${act.id}_${d.id}" ondragstart="dragStart(event,'${act.id}','${d.id}')">${d.text}</div>`).join('');
+    const zones = act.zones.map(z=>`<div class="drag-zone-wrap"><div class="drag-zone-title">${z}</div><div class="drag-zone" id="zone_${act.id}_${z.replace(/\s/g,'_')}" ondragover="allowDrop(event)" ondrop="dropChip(event,'${act.id}','${z}')" ondragenter="this.classList.add('over')" ondragleave="this.classList.remove('over')"></div></div>`).join('');
+    return `<div class="drag-source" id="dragSource_${act.id}">${chips}</div><div class="drag-zones">${zones}</div><div class="feedback" id="fb_${act.id}"></div><button class="btn btn-success" style="margin-top:14px" onclick="checkDrag('${act.id}')">Check placement</button>`;
+  }
+  if (act.type === 'poll') {
+    const opts = act.options.map((o,i)=>`
+      <div class="poll-opt" id="pollopt_${act.id}_${i}" onclick="votePoll('${act.id}',${i})">
+        <div class="poll-opt-row">
+          <span class="poll-opt-label">${o}</span>
+          <span class="poll-opt-pct" id="pollpct_${act.id}_${i}"></span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill" id="pollbar_${act.id}_${i}" style="width:0%"></div></div>
+      </div>`).join('');
+    return `<p style="font-size:14px;font-weight:500;margin-bottom:10px">${act.question}</p><div class="poll-opts" id="pollopts_${act.id}">${opts}</div><div class="poll-total" id="polltotal_${act.id}">No votes yet</div>`;
+  }
+  return '';
+}
+
+// ── TIMER ────────────────────────────────────────────────────────
+function startLocalTimer(actId, deadline) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act) return;
+  const container = document.getElementById('actLive_' + actId);
+  if (container) container.innerHTML = buildTimerAndForm(act, deadline);
+  const totalMs = act.timer_seconds * 1000;
+  activeTimers[actId] = true;
+  function tick() {
+    const remaining = Math.max(0, deadline - Date.now());
+    const secs = Math.ceil(remaining / 1000);
+    const pct  = Math.round((remaining / totalMs) * 100);
+    const ce = document.getElementById('timerCount_' + actId);
+    const fe = document.getElementById('timerFill_'  + actId);
+    if (ce) { ce.textContent = secs+'s'; ce.className='timer-count'+(secs<=10?' urgent':''); }
+    if (fe) { fe.style.width=pct+'%';    fe.className='timer-fill'+(secs<=10?' urgent':''); }
+    if (remaining > 0) activeTimers[actId] = setTimeout(tick, 300);
+    else lockActivity(actId);
+  }
+  tick();
+}
+
+function lockActivity(actId) {
+  if (activeTimers[actId] && activeTimers[actId] !== true) clearTimeout(activeTimers[actId]);
+  delete activeTimers[actId];
+  const act = CFG ? CFG.activities.find(a => a.id === actId) : null;
+  // Polls: keep results visible, just stop accepting new votes
+  if (act && act.type === 'poll') {
+    document.querySelectorAll(`[id^="pollopt_${actId}_"]`).forEach(el => el.onclick = null);
+    const totalEl = document.getElementById(`polltotal_${actId}`);
+    if (totalEl && !totalEl.textContent.includes('final')) {
+      totalEl.textContent = totalEl.textContent.replace('so far', 'total') + ' — voting closed (final results)';
+    }
+    // Make sure the latest results are showing
+    dbGet(`polls/${actId}/votes`).then(s => renderPollResults(actId, s.val() || {}));
+    return;
+  }
+  const container = document.getElementById('actLive_' + actId);
+  if (container && USER.completed[actId] === undefined) {
+    container.innerHTML = `<div class="locked-state"><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><p style="margin-top:8px">Time's up — activity closed</p><p class="missed">No coins awarded</p></div>`;
+  }
+}
+
+// ── ADMIN CONTROLS ───────────────────────────────────────────────
+window.adminNext = async function() {
+  if (!CFG) return;
+  const snap = await dbGet('session/slide');
+  const cur  = snap.val() || 0;
+  if (cur >= CFG.slides.length - 1) return;
+  await dbSet('session/slide', cur + 1);
+  renderSlide(cur+1); renderDots(cur+1); updateProgress(cur+1); renderAdmin();
+};
+
+window.adminPrev = async function() {
+  const snap = await dbGet('session/slide');
+  const cur  = snap.val() || 0;
+  if (cur <= 0) return;
+  await dbSet('session/slide', cur - 1);
+  renderSlide(cur-1); renderDots(cur-1); updateProgress(cur-1); renderAdmin();
+};
+
+window.jumpSlide = async function(i) {
+  await dbSet('session/slide', i);
+  renderSlide(i); renderDots(i); updateProgress(i); renderAdmin();
+};
+
+window.adminLaunchActivity = async function(actId) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act) return;
+  const deadline = Date.now() + (act.timer_seconds * 1000);
+  await dbSet(`activities/${actId}`, { status:'running', deadline });
+  showToast(`"${act.title}" started — ${act.timer_seconds}s`, false);
+  startLocalTimer(actId, deadline);
+  setTimeout(async () => { await dbSet(`activities/${actId}`, { status:'locked' }); }, act.timer_seconds * 1000 + 500);
+};
+
+window.endCohort = async function() {
+  if (!confirm('End the cohort and unlock rewards for the top 3?')) return;
+  await dbSet('session/cohortEnded', true);
+  showToast('Cohort ended — rewards unlocked for top 3!', false);
+};
+
+// ── ACTIVITY ANSWERS ─────────────────────────────────────────────
+// ── POLL VOTING ──────────────────────────────────────────────────
+const votedPolls = {};
+
+window.votePoll = async function(actId, optIdx) {
+  if (votedPolls[actId] !== undefined) return; // one vote per person
+  votedPolls[actId] = optIdx;
+  // Mark selection
+  const optEl = document.getElementById(`pollopt_${actId}_${optIdx}`);
+  if (optEl) optEl.classList.add('voted');
+  document.querySelectorAll(`[id^="pollopt_${actId}_"]`).forEach(el => el.onclick = null);
+  // Write vote to Firebase under this participant's key
+  try {
+    await dbSet(`polls/${actId}/votes/${lbKey(USER.name)}`, optIdx);
+  } catch(e) { showToast('Vote failed — check connection', false); }
+};
+
+function renderPollResults(actId, votesObj) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act) return;
+  const votes = Object.values(votesObj || {});
+  const total = votes.length;
+  const counts = act.options.map((_,i) => votes.filter(v => v === i).length);
+  act.options.forEach((_,i) => {
+    const pct = total > 0 ? Math.round(counts[i]/total*100) : 0;
+    const bar = document.getElementById(`pollbar_${actId}_${i}`);
+    const pctEl = document.getElementById(`pollpct_${actId}_${i}`);
+    if (bar) bar.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = total > 0 ? `${pct}% (${counts[i]})` : '';
+  });
+  const totalEl = document.getElementById(`polltotal_${actId}`);
+  if (totalEl) totalEl.textContent = total > 0 ? `${total} vote${total!==1?'s':''} so far` : 'No votes yet';
+}
+
+window.selectMC = function(actId, idx) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act || USER.completed[actId] !== undefined) return;
+  document.querySelectorAll(`[id^="mc_${actId}_"]`).forEach(el => el.onclick = null);
+  const correct = idx === act.correct;
+  document.getElementById(`mc_${actId}_${idx}`).classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.getElementById(`mc_${actId}_${act.correct}`).classList.add('correct');
+  const coins = correct ? act.coins : Math.floor(act.coins / 2);
+  const fb = document.getElementById(`fb_${actId}`);
+  if (fb) { fb.className='feedback show '+(correct?'ok':'err'); fb.textContent=correct?`Correct! +${coins} coins.`:`Not quite — correct answer highlighted. +${coins} coins for trying.`; }
+  awardCoins(actId, coins);
+};
+
+window.checkFill = function(actId) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act || USER.completed[actId] !== undefined) return;
+  let correct = 0;
+  act.items.forEach((it,i) => {
+    const inp = document.getElementById(`fi_${actId}_${i}`);
+    if (!inp) return;
+    if (inp.value.trim().toLowerCase() === it.answer.toLowerCase()) { inp.classList.add('ok'); correct++; } else { inp.classList.add('err'); }
+  });
+  const coins = Math.round(act.coins * correct / act.items.length);
+  const fb = document.getElementById(`fb_${actId}`);
+  if (fb) { fb.className='feedback show '+(correct===act.items.length?'ok':'err'); fb.textContent=`${correct}/${act.items.length} correct — +${coins} coins.`; }
+  awardCoins(actId, coins);
+};
+
+window.dragStart = function(e, actId, chipId) { e.dataTransfer.setData('text', actId+'|||'+chipId); };
+window.allowDrop = function(e) { e.preventDefault(); };
+window.dropChip  = function(e, actId, zone) {
+  e.preventDefault(); e.currentTarget.classList.remove('over');
+  const [aId, chipId] = e.dataTransfer.getData('text').split('|||');
+  if (aId !== actId) return;
+  const chip = document.getElementById(`chip_${actId}_${chipId}`);
+  if (chip) { e.currentTarget.appendChild(chip); if (!dragData[actId]) dragData[actId]={}; dragData[actId][chipId]=zone; }
+};
+window.checkDrag = function(actId) {
+  const act = CFG.activities.find(a => a.id === actId);
+  if (!act || USER.completed[actId] !== undefined) return;
+  let correct = 0;
+  act.items.forEach(d => {
+    const placed = (dragData[actId]||{})[d.id];
+    const chip   = document.getElementById(`chip_${actId}_${d.id}`);
+    if (chip) chip.classList.add(placed === d.zone ? 'correct-chip' : 'wrong-chip');
+    if (placed === d.zone) correct++;
+  });
+  const coins = Math.round(act.coins * correct / act.items.length);
+  const fb = document.getElementById(`fb_${actId}`);
+  if (fb) { fb.className='feedback show '+(correct===act.items.length?'ok':'err'); fb.textContent=`${correct}/${act.items.length} correct — +${coins} coins.`; }
+  awardCoins(actId, coins);
+};
+
+window.updateChartVal = function(i,v) {
+  const cv=document.getElementById('cv'+i); if(cv) cv.textContent=v;
+  const bn=document.getElementById('bn'+i); if(bn) bn.textContent=v;
+  const br=document.getElementById('br'+i); if(br) br.style.height=Math.round(v/10*110)+'px';
+};
+
+// ── COINS ────────────────────────────────────────────────────────
+async function awardCoins(actId, amount) {
+  if (USER.completed[actId] !== undefined) return;
+  USER.completed[actId] = amount;
+  USER.coins += amount;
+  saveLocal();
+  updateCoinDisplay();
+  showToast(`+${amount} coins earned! 🎉`, true);
+  await pushCoins();
+}
+
+// Each participant writes to their own UID-keyed slot — rules enforce this
+async function pushCoins() {
+  if (!USER.name || USER.isAdmin) return;
+  try {
+    const key = lbKey(USER.name);
+    console.log('Writing to leaderboard:', key, USER.coins, 'cohort:', CFG.course.cohort_id);
+    await dbSet(`leaderboard/${key}`, { name: USER.name, coins: USER.coins });
+    console.log('Leaderboard write success');
+  } catch(e) {
+    console.error('Leaderboard write failed:', e);
+    showToast('Could not save score — check connection', false);
+  }
+}
+
+window.syncMyScore = async function() {
+  if (USER.coins > 0) {
+    await pushCoins();
+    showToast('Score synced!', true);
+    const s = await dbGet('leaderboard');
+    renderLeaderboard(s.val()||{});
+  } else {
+    showToast('No coins to sync yet — complete an activity first', false);
+  }
+};
+
+function saveLocal() {
+  localStorage.setItem(`mba_${CFG.course.cohort_id}_${USER.name}`, JSON.stringify({ coins: USER.coins, completed: USER.completed }));
+}
+
+function updateCoinDisplay() {
+  const el = document.getElementById('coinDisplay');
+  if (el) el.textContent = USER.coins;
+}
+
+// ── LEADERBOARD ──────────────────────────────────────────────────
+function parseLB(lb) {
+  // lb values are {name, coins} objects
+  return Object.values(lb||{})
+    .filter(v => v && typeof v === 'object')
+    .sort((a,b) => b.coins - a.coins);
+}
+
+function renderLeaderboard(lb) {
+  const sorted   = parseLB(lb);
+  const medals   = ['🥇','🥈','🥉'];
+  const rankCls  = ['rank1','rank2','rank3'];
+  const top3     = sorted.slice(0,3);
+  const rest     = sorted.slice(3);
+  const podium   = document.getElementById('lbPodium');
+  if (!podium) return;
+  if (!top3.length) { podium.innerHTML='<p style="font-size:13px;color:var(--text2);grid-column:1/-1;text-align:center;padding:24px">No scores yet — complete activities to appear here.</p>'; return; }
+  podium.innerHTML = top3.map(({name,coins},i)=>`
+    <div class="podium-card ${rankCls[i]||''}">
+      <div class="podium-medal">${medals[i]}</div>
+      <div class="podium-name">${name}${name===USER.name?' (you)':''}</div>
+      <div class="podium-coins">◈ ${coins}</div>
+      <div style="font-size:11px;color:var(--text3)">coins</div>
+    </div>`).join('');
+  // Only show full rankings to admin — participants only see top 3
+  const restEl = document.getElementById('lbRest');
+  if (USER.isAdmin) {
+    restEl.textContent = rest.length
+      ? rest.map(({name,coins},i)=>`${i+4}. ${name} — ${coins} coins`).join(' · ')
+      : '';
+  } else {
+    restEl.textContent = '';
+  }
+}
+
+function renderAdminParticipants(lb) {
+  const sorted = parseLB(lb);
+  const el     = document.getElementById('adminParticipants');
+  if (!el) return;
+  el.innerHTML = sorted.length ? sorted.map(({name,coins},i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--surface2);border-radius:6px;margin-bottom:4px">
+      <span style="font-size:12px;color:var(--text3);width:16px">${i+1}</span>
+      <span style="flex:1;font-size:13px">${name}</span>
+      <span style="font-size:12px;font-weight:500;color:var(--amber)">◈ ${coins}</span>
+    </div>`).join('') : '<p style="font-size:12px;color:var(--text3)">No participants yet</p>';
+}
+
+// ── REWARDS ──────────────────────────────────────────────────────
+async function renderRewards(lb) {
+  if (!lb) { const s = await dbGet('leaderboard'); lb = s.val()||{}; }
+  const sorted  = parseLB(lb);
+  const myRank  = sorted.findIndex(({name}) => name===USER.name) + 1 || 99;
+  const endSnap = await dbGet('session/cohortEnded');
+  const ended   = endSnap.val() || false;
+  const gate    = document.getElementById('rewardsGate');
+
+  if (!ended) {
+    gate.innerHTML = `<div class="session-banner"><svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Rewards unlock when the facilitator ends the cohort. Finish in the top 3 to redeem!</div>`;
+  } else if (myRank > 3) {
+    gate.innerHTML = `<div class="locked-state" style="margin-bottom:16px"><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><p style="margin-top:8px">You were not in the top 3 this time. Keep earning coins next time!</p></div>`;
+  } else {
+    gate.innerHTML = `<div class="completed-state" style="margin-bottom:16px"><svg class="ico" width="24" height="24" viewBox="0 0 24 24" style="color:var(--teal)"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p style="margin-top:8px">🎉 Congratulations! You finished <strong>${['1st','2nd','3rd'][myRank-1]}</strong> — redeem any reward below.</p></div>`;
+  }
+
+  const canRedeem = ended && myRank <= 3;
+  const icons     = {gift:'🎁',coffee:'☕',book:'📚',ticket:'🎬',award:'🏆'};
+  document.getElementById('rewardsGrid').innerHTML = (CFG.rewards||[]).map(r => {
+    const affordable = USER.coins >= r.cost;
+    const unlocked   = canRedeem && affordable;
+    return `<div class="reward-card ${unlocked?'unlocked':'locked-reward'}">
+      <div class="reward-icon">${icons[r.icon]||'🎁'}</div>
+      <div class="reward-name">${r.name}</div>
+      <div class="reward-desc">${r.description}</div>
+      <div class="reward-cost">◈ ${r.cost}</div>
+      <button class="btn ${unlocked?'btn-success':''}" ${unlocked?'':'disabled'} onclick="redeemReward('${r.name}',${r.cost})" style="width:100%;justify-content:center">
+        ${canRedeem?(affordable?'Redeem':`Need ${r.cost-USER.coins} more`):'Locked'}
+      </button>
+    </div>`;
+  }).join('');
+}
+
+window.redeemReward = async function(name, cost) {
+  if (USER.coins < cost) return;
+  USER.coins -= cost;
+  updateCoinDisplay();
+  saveLocal();
+  await pushCoins();
+  showToast(`Redeemed: ${name}! Your facilitator will send the voucher.`, false);
+  const s = await dbGet('leaderboard');
+  renderRewards(s.val()||{});
+};
+
+// ── ADMIN RENDER ─────────────────────────────────────────────────
+async function renderAdmin() {
+  if (!CFG) return;
+  const slideSnap = await dbGet('session/slide');
+  const slide     = slideSnap.val() || 0;
+  document.getElementById('adminSlideNum').textContent = `Slide ${slide+1} / ${CFG.slides.length}`;
+
+  const actSnap = await dbGet('activities');
+  const acts    = actSnap.val() || {};
+  const aq      = document.getElementById('actQueue');
+  if (aq) aq.innerHTML = (CFG.activities||[]).map(act => {
+    const s     = acts[act.id] || {};
+    const dot   = s.status==='running'?'running':s.status==='locked'?'locked':'waiting';
+    const label = s.status==='running'?'Running…':s.status==='locked'?'Locked':'Ready';
+    return `<div class="act-queue-item">
+      <span class="status-dot ${dot}"></span>
+      <span style="flex:1">${act.title}</span>
+      <span style="font-size:11px;color:var(--text3);margin-right:8px">${label} · ⏱${act.timer_seconds}s · ◈${act.coins}</span>
+      <button class="btn btn-primary" style="padding:5px 10px;font-size:12px" ${s.status==='running'||s.status==='locked'?'disabled':''} onclick="adminLaunchActivity('${act.id}')">Start</button>
+    </div>`;
+  }).join('');
+}
+
+// ── NAVIGATION ───────────────────────────────────────────────────
+window.navTo = function(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const navEl = document.getElementById('nav-'+page);
+  if (navEl) navEl.classList.add('active');
+  const titles = {slides:'Course slides',leaderboard:'Leaderboard',rewards:'Rewards store',admin:'Admin panel'};
+  document.getElementById('topbarTitle').textContent = titles[page]||'';
+  // Auto-fit slides: toggle a class on content-area (fallback for browsers without :has())
+  const contentArea = document.querySelector('.content-area');
+  if (contentArea) contentArea.classList.toggle('slides-fit', page === 'slides');
+  // Show edit button only on slides page
+  const editBtn = document.getElementById('editSlideBtn');
+  if (editBtn) editBtn.style.display = (page === 'slides') ? 'flex' : 'none';
+  if (page==='leaderboard') {
+    dbGet('leaderboard').then(s=>renderLeaderboard(s.val()||{}));
+    const syncBtn = document.getElementById('syncScoreBtn');
+    if (syncBtn) syncBtn.style.display = (!USER.isAdmin && USER.coins > 0) ? 'block' : 'none';
+  }
+  if (page==='rewards')     dbGet('leaderboard').then(s=>renderRewards(s.val()||{}));
+  if (page==='admin')       renderAdmin();
+};
+
+// ── DOTS & PROGRESS ──────────────────────────────────────────────
+function renderDots(slideIdx) {
+  const el = document.getElementById('slideDots');
+  if (!el || !USER.isAdmin || !CFG) return;
+  el.innerHTML = CFG.slides.map((_,i)=>`<div class="sdot${i<slideIdx?' done':i===slideIdx?' current':''}" onclick="jumpSlide(${i})"></div>`).join('');
+}
+
+function updateProgress(slideIdx) {
+  if (!CFG) return;
+  const idx   = slideIdx || 0;
+  const total = CFG.slides.length;
+  const pct   = Math.round((idx/Math.max(total-1,1))*100);
+  document.getElementById('progText').textContent  = `${idx+1} / ${total}`;
+  document.getElementById('progFill').style.width  = pct+'%';
+  const slide = CFG.slides[idx];
+  if (slide) document.getElementById('topbarTitle').textContent = slide.title||'Course slides';
+}
+
+// ── TOAST ────────────────────────────────────────────────────────
+// ── IN-APP SLIDE EDITOR ──────────────────────────────────────────
+let editingIdx = -1;
+
+// Which fields are editable per slide type
+const editableFields = {
+  title:     ['title','subtitle','body','facilitator_notes'],
+  text:      ['title','body','facilitator_notes'],
+  image:     ['title','body','facilitator_notes'],
+  keypoints: ['title','facilitator_notes'],   // points handled separately below
+  video:     ['title','description','facilitator_notes'],
+  quote:     ['title','quote','attribution','facilitator_notes']
+};
+const richFields = ['body','subtitle','quote','description','facilitator_notes']; // get toolbar
+const singleLineFields = ['title','attribution'];
+
+window.openEditor = function(idx) {
+  editingIdx = idx;
+  const slide = CFG.slides[idx];
+  const fields = editableFields[slide.type] || ['title'];
+  const wrap = document.getElementById('editorFields');
+
+  let html = '';
+  fields.forEach(f => {
+    const val = (slide[f] || '').replace(/"/g,'&quot;');
+    const isRich = richFields.includes(f);
+    const isSingle = singleLineFields.includes(f);
+    html += `<div class="editor-field">
+      <label class="editor-field-label">${f.replace('_',' ')}</label>
+      ${isRich ? toolbarHTML('ed_'+f) : ''}
+      <textarea class="editor-textarea ${isSingle?'single':''}" id="ed_${f}" oninput="updatePreview()" data-field="${f}">${slide[f]||''}</textarea>
+      ${isRich ? '<div class="editor-hint">Select text, then click a format button. Or type tags like &lt;b&gt;bold&lt;/b&gt;.</div>' : ''}
+    </div>`;
+  });
+
+  // keypoints: edit each point
+  if (slide.type === 'keypoints' && Array.isArray(slide.points)) {
+    html += `<div class="editor-field"><label class="editor-field-label">Key points (one per line)</label>
+      <textarea class="editor-textarea" id="ed_points" oninput="updatePreview()" style="min-height:120px">${slide.points.join('\n')}</textarea>
+      <div class="editor-hint">Each line becomes a bullet. You can use &lt;b&gt; tags inside a line.</div></div>`;
+  }
+
+  wrap.innerHTML = html;
+  document.getElementById('editorOverlay').style.display = 'flex';
+  updatePreview();
+};
+
+function toolbarHTML(targetId) {
+  return `<div class="editor-toolbar">
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','bold')"><b>B</b></button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','italic')"><i>I</i></button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','underline')" style="text-decoration:underline">U</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','break')" title="Paragraph break">¶</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','big')" title="Larger text (22px)">A+</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','huge')" title="Largest text (28px)" style="font-size:14px">A++</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','purple')" style="color:#534AB7" title="Purple">●</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','amber')" style="color:#BA7517" title="Amber">●</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','green')" style="color:#1D9E75" title="Green">●</button>
+    <button type="button" class="tb-btn" onmousedown="event.preventDefault()" onclick="applyFmt('${targetId}','red')" style="color:#A32D2D" title="Red">●</button>
+  </div>`;
+}
+
+const FMT_TAGS = {
+  bold:      ['<b>', '</b>'],
+  italic:    ['<i>', '</i>'],
+  underline: ['<u>', '</u>'],
+  break:     ['<br><br>', ''],
+  big:       ["<span style='font-size:22px'>", '</span>'],
+  huge:      ["<span style='font-size:28px'>", '</span>'],
+  purple:    ["<span style='color:#534AB7'>", '</span>'],
+  amber:     ["<span style='color:#BA7517'>", '</span>'],
+  green:     ["<span style='color:#1D9E75'>", '</span>'],
+  red:       ["<span style='color:#A32D2D'>", '</span>']
+};
+
+window.applyFmt = function(targetId, fmt) {
+  const tags = FMT_TAGS[fmt];
+  if (!tags) return;
+  wrapSel(targetId, tags[0], tags[1]);
+};
+
+window.wrapSel = function(targetId, openTag, closeTag) {
+  const ta = document.getElementById(targetId);
+  if (!ta) return;
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  const before = ta.value.substring(0, start);
+  const after = ta.value.substring(end);
+  ta.value = before + openTag + sel + closeTag + after;
+  const newPos = start + openTag.length + sel.length + closeTag.length;
+  ta.focus();
+  ta.setSelectionRange(newPos, newPos);
+  updatePreview();
+};
+
+function gatherEdits() {
+  const slide = { ...CFG.slides[editingIdx] };
+  document.querySelectorAll('#editorFields textarea[data-field]').forEach(ta => {
+    slide[ta.dataset.field] = ta.value;
+  });
+  const ptsEl = document.getElementById('ed_points');
+  if (ptsEl) slide.points = ptsEl.value.split('\n').filter(l => l.trim() !== '');
+  return slide;
+}
+
+window.updatePreview = function() {
+  const slide = gatherEdits();
+  const prev = document.getElementById('editorPreview');
+  let html = '';
+  if (slide.type === 'title') {
+    html = `<div class="preview-card" style="text-align:center"><h1 style="font-family:'DM Serif Display',serif;font-size:34px;margin-bottom:8px">${slide.title||''}</h1><p style="font-size:18px;color:var(--text2)">${slide.subtitle||''}</p>${slide.body?`<p style="font-size:17px;color:var(--text2);margin-top:14px;line-height:1.7">${slide.body}</p>`:''}</div>`;
+  } else if (slide.type === 'text') {
+    html = `<div class="preview-card"><div style="font-size:22px;font-weight:500;margin-bottom:8px">${slide.title||''}</div><p style="font-size:17px;line-height:1.8;color:var(--text2)">${slide.body||''}</p></div>`;
+  } else if (slide.type === 'image') {
+    html = `<div class="preview-card"><div style="font-size:22px;font-weight:500;margin-bottom:8px">${slide.title||''}</div>${slide.image_url?`<img src="${slide.image_url}" style="width:100%;border-radius:8px;margin:10px 0">`:''}${slide.body?`<p style="font-size:17px;color:var(--text2)">${slide.body}</p>`:''}</div>`;
+  } else if (slide.type === 'keypoints') {
+    const pts = (slide.points||[]).map(p=>`<li style="display:flex;gap:10px;align-items:flex-start;margin:8px 0;font-size:17px;color:var(--text2);line-height:1.6"><span style="width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:7px"></span><span>${p}</span></li>`).join('');
+    html = `<div class="preview-card"><div style="font-size:22px;font-weight:500;margin-bottom:8px">${slide.title||''}</div><ul style="list-style:none;padding:0">${pts}</ul></div>`;
+  } else if (slide.type === 'video') {
+    html = `<div class="preview-card"><div style="font-size:22px;font-weight:500;margin-bottom:8px">${slide.title||''}</div><p style="font-size:17px;color:var(--text2);margin-bottom:10px">${slide.description||''}</p><div style="background:var(--surface2);border-radius:8px;height:140px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">▶ Video embed</div></div>`;
+  } else if (slide.type === 'quote') {
+    html = `<div class="preview-card"><div style="font-size:22px;font-weight:500;margin-bottom:8px">${slide.title||''}</div><div style="border-left:3px solid var(--purple);padding-left:14px"><div style="font-family:'DM Serif Display',serif;font-size:20px;line-height:1.5">"${slide.quote||''}"</div>${slide.attribution?`<div style="font-size:12px;color:var(--text3);margin-top:6px">— ${slide.attribution}</div>`:''}</div></div>`;
+  }
+  if (slide.facilitator_notes) {
+    html += `<div style="background:#FFF8E1;border-left:4px solid #BA7517;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:12px;color:#633806"><strong>Facilitator notes:</strong> ${slide.facilitator_notes}</div>`;
+  }
+  prev.innerHTML = html;
+};
+
+window.closeEditor = function() {
+  document.getElementById('editorOverlay').style.display = 'none';
+  editingIdx = -1;
+};
+
+window.saveEditor = async function() {
+  const slide = gatherEdits();
+  CFG.slides[editingIdx] = slide;
+  // Save the whole slides array to Firebase as an override
+  try {
+    await dbSet('contentOverride/slides', CFG.slides);
+    showToast('Saved live — all participants now see the update', false);
+  } catch(e) {
+    showToast('Save failed — check connection', false);
+  }
+  closeEditor();
+  renderSlide(editingIdx >= 0 ? editingIdx : 0);
+  // re-render current slide for everyone happens via listener
+};
+
+window.exportJSON = function() {
+  const slide = gatherEdits();
+  CFG.slides[editingIdx] = slide;
+  const full = JSON.stringify(CFG, null, 2);
+  // Download as file
+  const blob = new Blob([full], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'course-config.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Downloaded updated course-config.json', false);
+};
+
+window.showToast = function(msg, isCoin) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = 'toast show'+(isCoin?' coin-toast':'');
+  clearTimeout(window._tt);
+  window._tt = setTimeout(()=>{ t.className='toast'; }, 3000);
+};
+
+// ── SAMPLE CONFIG ────────────────────────────────────────────────
+function getSampleConfig() {
+  return {"course":{"title":"AI-Native Enterprise Mini MBA Lab","subtitle":"Building the AI-native organisation","facilitator_password":"admin1234","cohort_id":"cohort-01"},"slides":[{"id":"s1","type":"title","title":"AI-Native Enterprise Mini MBA Lab","subtitle":"Welcome — Day 1","body":"Over the next 10 sessions we will build the mindset, frameworks and hands-on skills to lead AI transformation inside your organisation."},{"id":"s2","type":"text","title":"What is an AI-native enterprise?","body":"An AI-native company embeds intelligence across every layer of its operations — not as a tool bolted on, but as the operating system of the business. Decisions are informed by models, workflows are automated, and humans focus on judgment and creativity."},{"id":"s3","type":"keypoints","title":"Three hallmarks of AI-native orgs","points":["Data infrastructure is a strategic asset, not an afterthought","AI is embedded in decision loops, not just dashboards","Employees are trained to work with — and direct — AI systems"]},{"id":"s4","type":"quote","title":"Executive insight","quote":"The question is no longer whether to use AI, but how fast you can rewire your operating model around it.","attribution":"McKinsey Global Institute"},{"id":"s5","type":"activity","activity_id":"a1"},{"id":"s6","type":"activity","activity_id":"a2"},{"id":"s7","type":"activity","activity_id":"a3"},{"id":"s8","type":"activity","activity_id":"a4"}],"activities":[{"id":"a1","type":"multiple_choice","title":"Knowledge check","timer_seconds":60,"coins":15,"question":"Which best describes an AI-native organisation?","options":["Uses AI only in IT","AI embedded across all decision-making","Adopted cloud computing","Sells AI products"],"correct":1},{"id":"a2","type":"multiple_choice","title":"Strategy check","timer_seconds":60,"coins":15,"question":"First step in building an AI opportunity map?","options":["Hire data scientists","Select cloud provider","Identify high-value use cases","Buy off-the-shelf tool"],"correct":2},{"id":"a3","type":"fill_blank","title":"Fill in the blanks","timer_seconds":90,"coins":25,"items":[{"text":"AI-native companies treat data as a strategic ___","answer":"asset"},{"text":"The second stage of AI maturity is being ___ driven","answer":"data"},{"text":"Employees focus on ___ and creativity","answer":"judgment"}]},{"id":"a4","type":"drag_drop","title":"Sort into AI adoption stages","timer_seconds":120,"coins":30,"zones":["Exploring","Scaling","Transforming"],"items":[{"id":"d1","text":"Pilot chatbot","zone":"Exploring"},{"id":"d2","text":"AI-led pricing engine","zone":"Transforming"},{"id":"d3","text":"Automated invoicing","zone":"Scaling"},{"id":"d4","text":"PoC recommender","zone":"Exploring"},{"id":"d5","text":"Enterprise AI governance","zone":"Transforming"},{"id":"d6","text":"Expanding to 5 BUs","zone":"Scaling"}]}],"rewards":[{"name":"Amazon gift card","cost":300,"description":"$30 AUD","icon":"gift"},{"name":"Cafe voucher","cost":200,"description":"$20 at a café","icon":"coffee"},{"name":"Udemy course","cost":350,"description":"Any paid Udemy course","icon":"book"},{"name":"Movie tickets","cost":150,"description":"2x cinema tickets","icon":"ticket"},{"name":"Course certificate","cost":500,"description":"Printed & posted","icon":"award"}]};
+}
+</script>
+</body>
+</html>
